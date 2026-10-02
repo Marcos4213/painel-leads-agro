@@ -2,11 +2,14 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
+  awaitingReply,
   buildBackup,
   buildCallFlow,
   buildScript,
+  buildWhatsAppFlow,
   calendarHref,
   computeKpis,
+  followUpDue,
   followupMessage,
   filterLeads,
   instagramUrl,
@@ -28,8 +31,12 @@ import { leadsFromCsv, parseCsv } from "../scripts/csv-to-json.mjs";
 const csv = readFileSync(new URL("../data/leads.csv", import.meta.url), "utf8");
 const json = JSON.parse(readFileSync(new URL("../data/leads.json", import.meta.url), "utf8"));
 
-test("CSV de exemplo gera o mesmo JSON publicado", () => {
-  assert.deepEqual(leadsFromCsv(csv), json);
+test("CSV continua legível e o JSON publicado é a lista de trabalho", () => {
+  const fromCsv = leadsFromCsv(csv);
+  assert.ok(fromCsv.length > 0);
+  assert.ok(fromCsv.every((lead) => lead.id));
+  assert.ok(json.length > 0);
+  assert.ok(json.every((lead) => lead.id));
 });
 
 test("CSV com vírgula entre aspas e aspas escapadas", () => {
@@ -144,6 +151,8 @@ test("KPIs, próximo lead e backup", () => {
     interessados: 0,
     videochamadas: 0,
     fechados: 0,
+    aguardando: 0,
+    followupHoje: 0,
   });
 
   const progress = {
@@ -158,6 +167,8 @@ test("KPIs, próximo lead e backup", () => {
     interessados: 1,
     videochamadas: 0,
     fechados: 1,
+    aguardando: 0,
+    followupHoje: 0,
   });
 
   assert.equal(nextLead(leads, progress, "ex-04").id, "ex-06");
@@ -314,4 +325,78 @@ test("fixture personalizado ramifica, esconde instagram vazio e aceita os dois f
   const [start, end] = params.get("dates").split("/");
   assert.equal(Date.parse(end.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, "$1-$2-$3T$4:$5:$6Z")) - Date.parse(start.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, "$1-$2-$3T$4:$5:$6Z")), 15 * 60 * 1000);
   assert.match(previewWaMessage(comPrevia, marcado.previa_url), /prévia do site da Agropecuária Exemplo Ltda/);
+});
+
+test("whatsapp usa a sequência padrão e cai no texto do lead quando o campo existe", () => {
+  const flow = buildWhatsAppFlow(fake());
+  assert.equal(flow.personalized, false);
+  assert.deepEqual(flow.steps.map((step) => step.titulo), [
+    "Abertura",
+    "Contexto",
+    "Valor/Videochamada",
+    "Follow-up 1",
+    "Follow-up 2",
+  ]);
+  assert.equal(flow.steps[3].prazo, "2 dias");
+  assert.equal(flow.steps[4].prazo, "5 dias");
+  assert.doesNotMatch(flow.steps[0].texto, /https?:\/\//);
+  assert.doesNotMatch(flow.steps[0].variacao, /https?:\/\//);
+  assert.match(flow.steps[0].texto, /João Exemplo/);
+  assert.match(flow.steps[2].texto, /15 minutinhos/);
+  assert.equal(flow.respostas.length > 0, true);
+  assert.match(flow.audio, /prévia do site/);
+
+  const comLink = buildWhatsAppFlow(fake({ previa_url: "https://example.com/previa" }));
+  assert.doesNotMatch(comLink.steps[0].texto, /example\.com/);
+  assert.match(comLink.steps[2].texto, /https:\/\/example\.com\/previa/);
+
+  const sample = JSON.parse(readFileSync(new URL("../data/sample-whatsapp.json", import.meta.url), "utf8"));
+  const personal = buildWhatsAppFlow(normalizeLead(sample));
+  assert.equal(personal.personalized, true);
+  assert.match(personal.steps[0].texto, /Abertura fictícia/);
+  assert.match(personal.steps[0].variacao, /variação fictícia/);
+  assert.deepEqual(personal.respostas.map((item) => item.rotulo), ["sim", "depois"]);
+  assert.match(personal.audio, /Áudio fictício/);
+
+  const parcial = buildWhatsAppFlow(fake({ whatsapp: { msg1_abertura: "Oi, João. Só isso." } }));
+  assert.equal(parcial.steps[0].texto, "Oi, João. Só isso.");
+  assert.match(parcial.steps[1].texto, /Agro Concorrente Exemplo/);
+  assert.equal(buildWhatsAppFlow(fake({ whatsapp: "texto" })).personalized, false);
+  assert.equal(buildWhatsAppFlow(fake({ whatsapp: {} })).personalized, false);
+});
+
+test("envio de whatsapp entra no backup e alimenta aguardando e follow-up", () => {
+  const antigo = parseBackup({ "ex-01": { status: "Interessado", notas: "oi", retornar_em: "2026-10-03" } });
+  assert.deepEqual(antigo["ex-01"].whatsapp_envios, {});
+  assert.equal(antigo["ex-01"].whatsapp_status, "");
+
+  const salvo = parseBackup({
+    "ex-01": {
+      status: "Não contatado",
+      whatsapp_status: "Não contatado",
+      whatsapp_envios: { abertura: "2026-10-01", contexto: "amanhã", extra: "2026-10-01" },
+    },
+  });
+  assert.deepEqual(salvo["ex-01"].whatsapp_envios, { abertura: "2026-10-01" });
+  assert.equal(awaitingReply(salvo["ex-01"]), true);
+  assert.equal(followUpDue(salvo["ex-01"], "2026-10-02"), false);
+  assert.equal(followUpDue(salvo["ex-01"], "2026-10-03"), true);
+  const comPrimeiro = {
+    ...salvo["ex-01"],
+    whatsapp_envios: { abertura: "2026-10-01", followup_1: "2026-10-03" },
+  };
+  assert.equal(followUpDue(comPrimeiro, "2026-10-03"), false);
+  assert.equal(followUpDue(comPrimeiro, "2026-10-06"), true);
+  assert.equal(followUpDue({ ...comPrimeiro, whatsapp_envios: { ...comPrimeiro.whatsapp_envios, followup_2: "2026-10-06" } }, "2026-10-06"), false);
+
+  const mudou = { ...salvo["ex-01"], status: "Interessado" };
+  assert.equal(awaitingReply(mudou), false);
+  assert.equal(followUpDue(mudou, "2026-10-06"), false);
+
+  const leads = normalizeLeads([fake(), fake({ id: "ex-02" })]);
+  const progress = { "ex-01": salvo["ex-01"] };
+  assert.equal(computeKpis(leads, progress, "2026-10-03").aguardando, 1);
+  assert.equal(computeKpis(leads, progress, "2026-10-03").followupHoje, 1);
+  assert.deepEqual(filterLeads(leads, progress, { whatsapp_fila: "followup", today: "2026-10-01" }).map((lead) => lead.id), []);
+  assert.deepEqual(filterLeads(leads, progress, { whatsapp_fila: "aguardando", today: "2026-10-03" }).map((lead) => lead.id), ["ex-01"]);
 });

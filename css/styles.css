@@ -210,12 +210,10 @@ h1 {
 
 .kpis {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   margin-bottom: 14px;
 }
-
-.kpi { grid-column: span 2; }
 
 .kpi {
   background: rgba(18, 36, 27, 0.92);
@@ -525,6 +523,87 @@ h2.owner, .panel-hero {
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+
+.panel-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.panel-tab {
+  min-height: 48px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #0c1913;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.panel-tab.is-current {
+  background: var(--gold);
+  color: var(--ink-on-gold);
+  border-color: var(--gold);
+}
+
+.wa-tip {
+  margin: 14px 0 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(20, 107, 64, 0.35);
+  border: 1px solid rgba(183, 235, 201, 0.28);
+  color: #d7f5e2;
+  font-weight: 600;
+}
+
+.wa-step { margin: 16px 0; }
+.wa-kicker {
+  margin: 0 0 8px;
+  color: var(--gold-2);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.wa-due {
+  margin: 0 0 8px;
+  color: var(--gold-2);
+  font-weight: 700;
+}
+.bubble {
+  margin: 8px 0;
+  padding: 12px 14px;
+  border-radius: 18px 18px 6px 18px;
+  background: #146b40;
+  color: #f4f0e6;
+}
+.bubble-reply {
+  border-radius: 18px 18px 18px 6px;
+  background: #1b3428;
+  border-left: 3px solid var(--gold);
+}
+.bubble-text {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+.bubble-actions {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 8px;
+}
+.wa-meta { margin-top: 8px; }
+.wa-mark { width: 100%; }
+.wa-sent { margin: 0; color: var(--gold-2); font-weight: 700; }
+.wa-audio {
+  margin: 8px 0 16px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(228, 184, 92, 0.14);
+  border: 1px solid rgba(228, 184, 92, 0.45);
+}
+.wa-audio .btn { margin-top: 12px; width: 100%; }
 
 .btn-agenda { width: 100%; }
 .preview-actions .btn-agenda { grid-column: 1 / -1; }
@@ -849,7 +928,7 @@ h2.owner, .panel-hero {
   .modal { align-items: center; padding: 24px; }
   .modal-card { border-radius: 22px; }
   .top-actions { width: auto; }
-  .kpis { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .kpi { grid-column: auto; }
   .kpi strong { font-size: 2rem; }
   .kpi span { font-size: 0.75rem; letter-spacing: 0.06em; }

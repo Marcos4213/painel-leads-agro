@@ -2,10 +2,12 @@ import {
   STATUSES,
   buildCallFlow,
   buildBackup,
+  buildWhatsAppFlow,
   calendarHref,
   computeKpis,
   facebookUrl,
   filterLeads,
+  formatISODate,
   formatRating,
   formatReviews,
   hookSummary,
@@ -33,6 +35,10 @@ import {
   uniquePlaces,
   uniqueSegments,
   videoHint,
+  WA_TIP,
+  whatsAppAnchor,
+  whatsAppCardHint,
+  daysSince,
   waHref,
   fold,
 } from "./logic.js";
@@ -55,6 +61,9 @@ const state = {
   progress: {},
   selectedId: null,
   scriptOpen: false,
+  panelTab: "roteiro",
+  waVariation: false,
+  waReply: "",
   scriptStep: 0,
   scriptBranches: {},
   objectionsOpen: false,
@@ -65,6 +74,7 @@ const state = {
     prioridade: "",
     status_site: "",
     status_contato: "",
+    whatsapp_fila: "",
   },
 };
 
@@ -154,6 +164,8 @@ function renderKpis() {
   document.getElementById("kpi-interessados").textContent = String(kpis.interessados);
   document.getElementById("kpi-video").textContent = String(kpis.videochamadas);
   document.getElementById("kpi-fechados").textContent = String(kpis.fechados);
+  document.getElementById("kpi-aguardando").textContent = String(kpis.aguardando);
+  document.getElementById("kpi-followup").textContent = String(kpis.followupHoje);
 }
 
 function filtersActive() {
@@ -200,9 +212,10 @@ function clearFilters() {
     prioridade: "",
     status_site: "",
     status_contato: "",
+    whatsapp_fila: "",
   };
   document.getElementById("q").value = "";
-  for (const id of ["f-cidade", "f-segmento", "f-prioridade", "f-status-site", "f-status"]) {
+  for (const id of ["f-cidade", "f-segmento", "f-prioridade", "f-status-site", "f-status", "f-whatsapp"]) {
     document.getElementById(id).value = "";
   }
   renderList();
@@ -266,7 +279,7 @@ function renderCard(lead) {
   const bits = [lead.segmento, placeLabel(lead)].filter(Boolean);
   if (bits.length) article.append(el("p", { class: "meta", text: bits.join(" · ") }));
   if (lead.telefone) article.append(el("p", { class: "phone", text: lead.telefone }));
-  const hint = [returnHint(progress), videoHint(progress)].filter(Boolean).join(" · ");
+  const hint = [returnHint(progress), videoHint(progress), whatsAppCardHint(progress)].filter(Boolean).join(" · ");
   const due = progress.status === "Retornar" && progress.retornar_em && progress.retornar_em <= todayISO();
   if (hint || progress.notas) {
     article.append(el("p", {
@@ -317,7 +330,10 @@ function fact(term, value, href) {
   return [el("dt", { text: term }), dd];
 }
 
+let keepPanelScroll = false;
+
 function renderPanel() {
+  const previousScroll = keepPanelScroll ? (panel.querySelector(".panel-body")?.scrollTop || 0) : 0;
   panel.replaceChildren();
   const lead = selectedLead();
   if (!lead) {
@@ -356,6 +372,16 @@ function renderPanel() {
   if (bits.length) body.append(el("p", { class: "place", text: bits.join(" · ") }));
   if (lead.telefone) body.append(el("p", { class: "phone-lg", text: lead.telefone }));
   else body.append(el("p", { class: "hint", text: "Sem telefone neste lead." }));
+
+  body.append(panelTabs());
+
+  if (state.panelTab === "whatsapp") {
+    renderWhatsAppPanel(body, lead, progress);
+    const dock = panelDock(lead);
+    panel.append(bar, body, dock);
+    body.scrollTop = previousScroll;
+    return;
+  }
 
   body.append(el("button", {
     type: "button",
@@ -453,15 +479,197 @@ function renderPanel() {
   ]);
   body.append(facts);
 
+  panel.append(bar, body, panelDock(lead));
+  body.scrollTop = previousScroll;
+}
+
+function panelDock(lead) {
   const dock = el("div", { class: "panel-dock" });
   const grid = el("div", { class: "dock-grid" });
   const secondary = [copyButton(lead, "Copiar telefone"), igLink(lead)].filter(Boolean);
   if (secondary.length === 1) secondary[0].style.gridColumn = "1 / -1";
   [callLink(lead), waLink(lead), ...secondary].forEach((node) => grid.append(node));
   dock.append(grid);
+  return dock;
+}
 
-  panel.append(bar, body, dock);
-  body.scrollTop = 0;
+function panelTabs() {
+  const tabs = el("div", { class: "panel-tabs", role: "tablist", "aria-label": "Detalhe do lead" });
+  for (const tab of [
+    ["roteiro", "Roteiro"],
+    ["whatsapp", "WhatsApp"],
+  ]) {
+    const on = state.panelTab === tab[0];
+    tabs.append(el("button", {
+      type: "button",
+      class: `panel-tab${on ? " is-current" : ""}`,
+      role: "tab",
+      "aria-selected": on ? "true" : "false",
+      onClick: () => {
+        state.panelTab = tab[0];
+        renderPanel();
+      },
+    }, tab[1]));
+  }
+  return tabs;
+}
+
+function markWhatsAppSent(leadId, stepId) {
+  const current = progressOf(state.progress, leadId);
+  if (!current.whatsapp_envios[stepId]) {
+    state.progress[leadId] = {
+      ...current,
+      whatsapp_status: current.whatsapp_status || current.status,
+      whatsapp_envios: { ...current.whatsapp_envios, [stepId]: todayISO() },
+    };
+    persist();
+  }
+  keepPanelScroll = true;
+  renderKpis();
+  renderList();
+  renderPanel();
+  keepPanelScroll = false;
+}
+
+function waSendLink(lead, text, stepId) {
+  const href = waHrefText(lead.telefone, text);
+  if (!href) return el("button", { type: "button", class: "btn btn-wa", disabled: true }, [icon("wa"), "Sem WhatsApp"]);
+  return el("a", {
+    class: "btn btn-wa",
+    href,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    onClick: () => {
+      if (stepId) markWhatsAppSent(lead.id, stepId);
+    },
+  }, [icon("wa"), "Enviar no WhatsApp"]);
+}
+
+function bubbleActions(lead, text, stepId) {
+  const sent = stepId ? progressOf(state.progress, lead.id).whatsapp_envios[stepId] : "";
+  const row = el("div", { class: "bubble-actions" }, [
+    el("button", {
+      type: "button",
+      class: "btn btn-ghost",
+      onClick: () => copyText(text, "Mensagem copiada."),
+    }, [icon("copy"), "Copiar"]),
+    waSendLink(lead, text, stepId),
+  ]);
+  const meta = el("div", { class: "wa-meta" });
+  if (sent) meta.append(el("p", { class: "wa-sent", text: `Enviado em ${formatISODate(sent)}` }));
+  else if (stepId) {
+    meta.append(el("button", {
+      type: "button",
+      class: "btn btn-ghost wa-mark",
+      onClick: () => markWhatsAppSent(lead.id, stepId),
+    }, "Marcar como enviado"));
+  }
+  return el("div", {}, [row, meta]);
+}
+
+function renderWhatsAppPanel(body, lead, progress) {
+  const flow = buildWhatsAppFlow(lead);
+  body.append(el("p", { class: "wa-tip", text: WA_TIP }));
+  body.append(el("p", {
+    class: "eyebrow",
+    text: flow.personalized ? "Sequência deste lead" : "Sequência padrão",
+  }));
+  if (flow.dica) body.append(el("p", { class: "dica", text: flow.dica }));
+
+  for (const step of flow.steps) {
+    const useVariation = step.id === "abertura" && state.waVariation && step.variacao;
+    const text = useVariation ? step.variacao : step.texto;
+    const label = [step.numero, step.titulo, step.prazo ? `(${step.prazo})` : ""].filter(Boolean).join(" ");
+    const block = el("section", { class: "wa-step" });
+    block.append(el("p", { class: "wa-kicker", text: label }));
+    if (step.variacao) {
+      block.append(el("div", { class: "branches", role: "group", "aria-label": "Variação da abertura" }, [
+        el("button", {
+          type: "button",
+          class: `branch-chip${state.waVariation ? "" : " is-current"}`,
+          "aria-pressed": state.waVariation ? "false" : "true",
+          onClick: () => {
+            state.waVariation = false;
+            keepPanelScroll = true;
+            renderPanel();
+            keepPanelScroll = false;
+          },
+          text: "Principal",
+        }),
+        el("button", {
+          type: "button",
+          class: `branch-chip${state.waVariation ? " is-current" : ""}`,
+          "aria-pressed": state.waVariation ? "true" : "false",
+          onClick: () => {
+            state.waVariation = true;
+            keepPanelScroll = true;
+            renderPanel();
+            keepPanelScroll = false;
+          },
+          text: "Variação",
+        }),
+      ]));
+    }
+    const due = followUpLabel(step, progress);
+    if (due) block.append(el("p", { class: "wa-due", text: due }));
+    block.append(el("div", { class: "bubble" }, [el("p", { class: "bubble-text", text })]));
+    block.append(bubbleActions(lead, text, step.id));
+    body.append(block);
+  }
+
+  if (flow.respostas.length) {
+    const box = el("section", { class: "wa-step" });
+    box.append(el("p", { class: "wa-kicker", text: "Se ele responder" }));
+    const row = el("div", { class: "branches", role: "group", "aria-label": "Respostas possíveis" });
+    for (const reply of flow.respostas) {
+      const on = state.waReply === reply.rotulo;
+      row.append(el("button", {
+        type: "button",
+        class: `branch-chip${on ? " is-current" : ""}`,
+        "aria-pressed": on ? "true" : "false",
+        onClick: () => {
+          state.waReply = state.waReply === reply.rotulo ? "" : reply.rotulo;
+          keepPanelScroll = true;
+          renderPanel();
+          keepPanelScroll = false;
+        },
+        text: reply.rotulo,
+      }));
+    }
+    box.append(row);
+    const chosen = flow.respostas.find((reply) => reply.rotulo === state.waReply);
+    if (chosen) {
+      box.append(el("div", { class: "bubble bubble-reply" }, [el("p", { class: "bubble-text", text: chosen.texto })]));
+      box.append(bubbleActions(lead, chosen.texto, ""));
+    }
+    body.append(box);
+  }
+
+  if (flow.audio) {
+    body.append(el("section", { class: "wa-audio" }, [
+      el("p", { class: "eyebrow", text: "Gravar áudio de ~25s" }),
+      el("p", { class: "bubble-text", text: flow.audio }),
+      el("button", {
+        type: "button",
+        class: "btn btn-ghost",
+        onClick: () => copyText(flow.audio, "Áudio copiado."),
+      }, [icon("copy"), "Copiar áudio"]),
+    ]));
+  }
+}
+
+function followUpLabel(step, progress) {
+  if (step.id !== "followup_1" && step.id !== "followup_2") return "";
+  if (progress.whatsapp_envios[step.id]) return "";
+  const anchor = whatsAppAnchor(progress.whatsapp_envios);
+  if (!anchor) return "";
+  const need = step.id === "followup_1" ? 2 : 5;
+  const days = daysSince(anchor, todayISO());
+  if (progress.whatsapp_status && progress.status !== progress.whatsapp_status) return "";
+  if (!progress.whatsapp_status && progress.status !== "Não contatado") return "";
+  if (days >= need) return "Follow-up hoje";
+  const left = need - days;
+  return left === 1 ? "Amanhã" : `Daqui a ${left} dias`;
 }
 
 function scheduleLink(lead) {
@@ -735,7 +943,13 @@ function renderAll() {
 function applyRoute() {
   const route = readRoute();
   const exists = state.leads.some((lead) => lead.id === route.leadId);
-  state.selectedId = exists ? route.leadId : null;
+  const nextId = exists ? route.leadId : null;
+  if (nextId !== state.selectedId) {
+    state.panelTab = "roteiro";
+    state.waVariation = false;
+    state.waReply = "";
+  }
+  state.selectedId = nextId;
   state.scriptOpen = Boolean(state.selectedId && route.roteiro);
   if (!state.scriptOpen) state.scriptStep = 0;
   renderAll();
@@ -743,6 +957,11 @@ function applyRoute() {
 
 function openLead(id, { via = "list", historyMode } = {}) {
   if (!state.leads.some((lead) => lead.id === id)) return;
+  if (state.selectedId !== id) {
+    state.panelTab = "roteiro";
+    state.waVariation = false;
+    state.waReply = "";
+  }
   const mode = historyMode || (isMobile() ? "push" : "replace");
   state.selectedId = id;
   state.scriptOpen = false;
@@ -915,6 +1134,7 @@ function bind() {
     ["f-prioridade", "prioridade"],
     ["f-status-site", "status_site"],
     ["f-status", "status_contato"],
+    ["f-whatsapp", "whatsapp_fila"],
   ];
   for (const [id, key] of fields) {
     document.getElementById(id).addEventListener("change", (event) => {
