@@ -97,6 +97,11 @@ export function normalizeLead(raw, index = 0) {
     concorrente_no_google: clean(source.concorrente_no_google),
     observacao: clean(source.observacao),
   };
+  const diagnostico = diagnosticoList(source.diagnostico);
+  if (diagnostico.length) lead.diagnostico = diagnostico;
+  if (source.roteiro && typeof source.roteiro === "object" && !Array.isArray(source.roteiro)) {
+    lead.roteiro = source.roteiro;
+  }
   if (!lead.id) lead.id = fallbackId(lead, index);
   return lead;
 }
@@ -281,12 +286,199 @@ export function buildScript(lead) {
   ];
 }
 
+export function asLines(value) {
+  if (Array.isArray(value)) return value.flatMap(asLines);
+  if (typeof value === "number" && Number.isFinite(value)) return [String(value)];
+  if (typeof value !== "string") return [];
+  const text = value.trim();
+  if (!text) return [];
+  if (text.length <= 120 && !text.includes("\n")) return [text];
+  return text
+    .split(/\n+/)
+    .flatMap((part) => {
+      const bits = part.split(/(?<=[.!?])\s+/).map((item) => item.trim()).filter(Boolean);
+      return bits.length ? bits : [part.trim()].filter(Boolean);
+    })
+    .filter(Boolean);
+}
+
+export function diagnosticoList(value) {
+  if (Array.isArray(value)) return value.flatMap((item) => asLines(item));
+  return asLines(value);
+}
+
+function messageText(value) {
+  if (typeof value === "string") return value.trim();
+  if (Array.isArray(value)) {
+    return value.map((item) => (typeof item === "string" ? item.trim() : "")).filter(Boolean).join("\n");
+  }
+  return "";
+}
+
+function branchesFrom(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return [];
+  return Object.entries(value)
+    .map(([rotulo, fala]) => ({
+      rotulo: String(rotulo).trim(),
+      linhas: asLines(fala),
+    }))
+    .filter((item) => item.rotulo && item.linhas.length);
+}
+
+function objectionsFrom(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => {
+        if (typeof item === "string" && item.trim()) return { objecao: item.trim(), linhas: [] };
+        if (!item || typeof item !== "object") return null;
+        const objecao = clean(item.objecao ?? item["objeção"] ?? item.objection ?? item.titulo ?? "");
+        const linhas = asLines(item.resposta ?? item.answer ?? item.fala ?? "");
+        if (!objecao && !linhas.length) return null;
+        return { objecao: objecao || "Objeção", linhas };
+      })
+      .filter(Boolean);
+  }
+  if (typeof value === "object") {
+    return branchesFrom(value).map((item) => ({ objecao: item.rotulo, linhas: item.linhas }));
+  }
+  return [];
+}
+
+function parseEscuta(value) {
+  if (Array.isArray(value)) return { linhas: asLines(value), ramos: [] };
+  if (value && typeof value === "object") return { linhas: [], ramos: branchesFrom(value) };
+  if (typeof value === "string") return { linhas: asLines(value), ramos: [] };
+  return { linhas: [], ramos: [] };
+}
+
+function readRoteiro(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const escuta = parseEscuta(raw.escuta);
+  const parsed = {
+    abertura: asLines(raw.abertura),
+    espera: branchesFrom(raw.espera_abertura),
+    gancho_perda: asLines(raw.gancho_perda),
+    gancho_instagram: asLines(raw.gancho_instagram),
+    pergunta: asLines(raw.pergunta_engajamento),
+    escuta,
+    fechamento: asLines(raw.fechamento_leve),
+    objecoes: objectionsFrom(raw.objecoes),
+    whatsapp: messageText(raw.mensagem_whatsapp_followup),
+    dica: typeof raw.dica === "string" ? raw.dica.trim() : asLines(raw.dica).join(" "),
+  };
+  const useful = parsed.abertura.length
+    || parsed.espera.length
+    || parsed.gancho_perda.length
+    || parsed.gancho_instagram.length
+    || parsed.pergunta.length
+    || parsed.escuta.linhas.length
+    || parsed.escuta.ramos.length
+    || parsed.fechamento.length
+    || parsed.objecoes.length
+    || parsed.whatsapp
+    || parsed.dica;
+  return useful ? parsed : null;
+}
+
+function genericPieces(lead) {
+  const steps = buildScript(lead);
+  const byId = Object.fromEntries(steps.map((step) => [step.id, step.texto]));
+  return {
+    abertura: asLines(byId.abertura),
+    gancho: asLines(byId.gancho),
+    pergunta: asLines(byId.pergunta),
+    escuta: ["Deixe ele falar.", "Não preencha o silêncio."],
+    fechamento: asLines(byId.fechamento),
+    objecoes: [{ objecao: "Já recebo muita ligação disso", linhas: asLines(byId.objecao) }],
+  };
+}
+
+export function buildCallFlow(lead) {
+  const generic = genericPieces(lead || {});
+  const custom = readRoteiro(lead?.roteiro);
+  const personalized = Boolean(custom);
+  const escuta = custom?.escuta || { linhas: [], ramos: [] };
+  const escutaLinhas = escuta.ramos.length
+    ? (escuta.linhas.length ? escuta.linhas : ["Escute até o fim."])
+    : (escuta.linhas.length ? escuta.linhas : generic.escuta);
+
+  const stages = [];
+  const push = (stage) => {
+    stages.push({ ramos: [], pausa: true, kicker: "", ...stage, numero: stages.length + 1 });
+  };
+  push({
+    id: "abertura",
+    titulo: "Abertura",
+    linhas: custom?.abertura.length ? custom.abertura : generic.abertura,
+    ramos: custom?.espera || [],
+  });
+  push({
+    id: "gancho",
+    titulo: "Gancho da perda",
+    linhas: custom?.gancho_perda.length ? custom.gancho_perda : generic.gancho,
+  });
+  if (custom?.gancho_instagram.length) {
+    push({ id: "instagram", titulo: "Instagram", linhas: custom.gancho_instagram });
+  }
+  push({
+    id: "pergunta",
+    titulo: "Pergunta",
+    kicker: "Deixe ele falar",
+    linhas: custom?.pergunta.length ? custom.pergunta : generic.pergunta,
+  });
+  push({
+    id: "escuta",
+    titulo: "Escuta",
+    kicker: escuta.ramos.length ? "Como ele respondeu?" : "",
+    linhas: personalized ? escutaLinhas : generic.escuta,
+    ramos: escuta.ramos,
+  });
+  push({
+    id: "fechamento",
+    titulo: "Fechamento leve",
+    linhas: custom?.fechamento.length ? custom.fechamento : generic.fechamento,
+    pausa: false,
+  });
+
+  const dica = custom?.dica || CALL_TIPS.join("\n");
+  return {
+    personalized,
+    diagnostico: diagnosticoList(lead?.diagnostico),
+    dica,
+    stages,
+    objecoes: custom?.objecoes.length ? custom.objecoes : generic.objecoes,
+    whatsapp: custom?.whatsapp || waMessage(lead || {}),
+  };
+}
+
 export function scriptPlainText(lead) {
-  const steps = buildScript(lead)
-    .map((step, index) => `${index + 1}. ${step.titulo}\n${step.texto}`)
-    .join("\n\n");
-  const tips = CALL_TIPS.map((tip) => `• ${tip}`).join("\n");
-  return `${steps}\n\nDicas\n${tips}`;
+  const flow = buildCallFlow(lead);
+  const parts = [];
+  if (flow.diagnostico.length) {
+    parts.push(`O que vi\n${flow.diagnostico.map((item) => `• ${item}`).join("\n")}`);
+  }
+  if (flow.dica) parts.push(`Dica\n${flow.dica}`);
+  for (const stage of flow.stages) {
+    let block = `${stage.numero}. ${stage.titulo}\n${stage.linhas.join("\n")}`;
+    if (stage.pausa) block += "\n\nPAUSA: espere a resposta";
+    if (stage.ramos.length) {
+      block += `\n\n${stage.ramos.map((ramo) => `Se disser "${ramo.rotulo}":\n${ramo.linhas.join("\n")}`).join("\n\n")}`;
+    }
+    parts.push(block);
+  }
+  if (flow.objecoes.length) {
+    parts.push(`Objeções\n${flow.objecoes.map((item) => `${item.objecao}\n${item.linhas.join("\n")}`).join("\n\n")}`);
+  }
+  if (flow.whatsapp) parts.push(`Mensagem pós-ligação\n${flow.whatsapp}`);
+  return parts.join("\n\n");
+}
+
+export function waHrefText(phone, text) {
+  const digits = brazilDigits(phone);
+  const message = typeof text === "string" ? text.trim() : "";
+  if (!digits || !message) return "";
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
 
 export function hookSummary(lead) {
