@@ -1,0 +1,1 @@
+Fraunces (Copyright 2018 The Fraunces Project Authors) e Outfit (Copyright 2021 The Outfit Project Authors) estão sob a SIL Open Font License 1.1. O texto completo está em `OFL-fraunces.txt` e `OFL-outfit.txt`. Os arquivos `.woff2` são só o recorte latino, servidos daqui para o painel não chamar serviço externo.
