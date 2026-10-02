@@ -679,7 +679,7 @@ function exportBackup() {
   document.body.append(link);
   link.click();
   link.remove();
-  URL.revokeObjectURL(url);
+  window.setTimeout(() => URL.revokeObjectURL(url), 1500);
   toast("Backup baixado. Guarde esse arquivo.");
 }
 
