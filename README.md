@@ -140,11 +140,14 @@ O workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) publica 
 
 URL esperada: <https://marcos4213.github.io/painel-leads-agro/>
 
-Para o primeiro deploy, o repositório precisa autorizar Pages com origem **GitHub Actions**:
+O código já está em `main` e o workflow **Publicar no GitHub Pages** já rodou. Ele para no passo “Configurar Pages” com:
 
-1. Abra **Settings → Pages** do repositório.
-2. Em **Build and deployment**, escolha **Source: GitHub Actions**.
-3. Se o workflow falhar com permissão, em **Settings → Actions → General → Workflow permissions** marque **Read and write permissions**.
-4. Rode de novo o workflow **Publicar no GitHub Pages** (ou faça um push em `main`).
+> Get Pages site failed. Please verify that the repository has Pages enabled and configured to build using GitHub Actions.
 
-O token usado por esta automação pode não ter permissão de administrador para ligar o Pages sozinho. Se o site ainda responder 404, falta esse ajuste em Settings → Pages.
+A API de Pages respondeu 403 (`Resource not accessible by integration`) para esta automação, então falta um ajuste que só o dono do repositório faz:
+
+1. Abra [Settings → Pages](https://github.com/Marcos4213/painel-leads-agro/settings/pages).
+2. Em **Build and deployment**, escolha **Source: GitHub Actions**. Salve.
+3. Abra o workflow que falhou e clique em **Re-run all jobs**: [run 37014778149](https://github.com/Marcos4213/painel-leads-agro/actions/runs/37014778149).
+
+Não é senha nem login no painel. Depois desse clique, o site passa a responder em <https://marcos4213.github.io/painel-leads-agro/>.
