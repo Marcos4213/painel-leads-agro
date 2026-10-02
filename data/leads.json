@@ -61,7 +61,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Edil! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Casa da Lavoura 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Loja grande com nota 4,4 em 200 avaliações: elogie isso no início. Se o Edil não atender, peça pela Monica (sócia)."
+      "dica": "Loja grande com nota 4,4 em 200 avaliações: elogie isso no início. Se o Edil não atender, peça pela Monica (sócia).",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Casa da Lavoura junto."
+      ]
     }
   },
   {
@@ -126,7 +132,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Gabriela! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Força Nossa 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Tem filial em São José do Rio Claro: pergunte se a busca lá é igual. Fixo (65) 3308-1344 se o celular não atender."
+      "dica": "Tem filial em São José do Rio Claro: pergunte se a busca lá é igual. Fixo (65) 3308-1344 se o celular não atender.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Força Nossa Peças e Implementos Agrícolas junto."
+      ]
     }
   },
   {
@@ -191,7 +203,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Gilberto! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra BM 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "O Thadeu (sócio) aparece na bio como representante, com o celular (67) 99973-2452. Se o Gilberto não puder, fale com ele."
+      "dica": "O Thadeu (sócio) aparece na bio como representante, com o celular (67) 99973-2452. Se o Gilberto não puder, fale com ele.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da BM Peças e Implementos Agrícolas junto."
+      ]
     }
   },
   {
@@ -256,7 +274,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Ademir! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Integração 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Empresa de 2005 com 3 sócios; o argumento é 'tradição perdendo vitrine pro novato'. Fixo (64) 3661-9718 está na bio."
+      "dica": "Empresa de 2005 com 3 sócios; o argumento é 'tradição perdendo vitrine pro novato'. Fixo (64) 3661-9718 está na bio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Integração Agricultura e Pecuária junto."
+      ]
     }
   },
   {
@@ -321,7 +345,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Claudio! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agrinova 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Empresa de 1997: comece valorizando os 28 anos. Fixo (65) 3308-1023 na Receita; José Antonio é o outro sócio."
+      "dica": "Empresa de 1997: comece valorizando os 28 anos. Fixo (65) 3308-1023 na Receita; José Antonio é o outro sócio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Agrinova Peças Agrícolas junto."
+      ]
     }
   },
   {
@@ -386,7 +416,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Caio! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Vetmano 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Perfil 'vetmano_matriz': pergunte se há filiais, porque o site pode servir todas."
+      "dica": "Perfil 'vetmano_matriz': pergunte se há filiais, porque o site pode servir todas.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Vetmano Produtos Agropecuários."
+      ]
     }
   },
   {
@@ -450,7 +486,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Vitor! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra JP Mecânica 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Dono é José Vitor; na bio do Instagram aparece como @vitorcnp, então chame de Vitor. Ligue cedo: mecânico está no campo o dia todo."
+      "dica": "Dono é José Vitor; na bio do Instagram aparece como @vitorcnp, então chame de Vitor. Ligue cedo: mecânico está no campo o dia todo.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da JP Mecânica Agrícola."
+      ]
     }
   },
   {
@@ -514,7 +556,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Masolene! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Mazzo 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Mencione o plantão de fim de semana: é o diferencial deles e deve estar no site."
+      "dica": "Mencione o plantão de fim de semana: é o diferencial deles e deve estar no site.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Mazzo Peças Agrícolas."
+      ]
     }
   },
   {
@@ -578,7 +626,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Marcelo! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agropecuária Duarte 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "A bio do Instagram diz 'Proprietário @marceloduarte595': peça pelo Marcelo. CNPJ não confirmado."
+      "dica": "A bio do Instagram diz 'Proprietário @marceloduarte595': peça pelo Marcelo. CNPJ não confirmado.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agropecuária Duarte."
+      ]
     }
   },
   {
@@ -642,7 +696,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agromix 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem nome do dono (CNPJ não verificado): peça pelo dono ou gerente. O WhatsApp (77) 3611-7259 está na bio; funciona das 7h30 às 18h."
+      "dica": "Sem nome do dono (CNPJ não verificado): peça pelo dono ou gerente. O WhatsApp (77) 3611-7259 está na bio; funciona das 7h30 às 18h.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agromix."
+      ]
     }
   },
   {
@@ -707,7 +767,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Irrimaq 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "ATENÇÃO: os CNPJs Irrimaq de Barreiras constam INAPTOS na Receita. Confirme na conversa quem é o responsável e se a empresa opera com outro CNPJ."
+      "dica": "ATENÇÃO: os CNPJs Irrimaq de Barreiras constam INAPTOS na Receita. Confirme na conversa quem é o responsável e se a empresa opera com outro CNPJ.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da IRRIMAQ Irrigação e Pecuária."
+      ]
     }
   },
   {
@@ -772,7 +838,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Polivet 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram e sem dono confirmado: peça pelo responsável comercial. Cuidado: polivet.com.br é de outra empresa, de SP, não cite."
+      "dica": "Sem Instagram e sem dono confirmado: peça pelo responsável comercial. Cuidado: polivet.com.br é de outra empresa, de SP, não cite.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Polivet Nutrição Animal."
+      ]
     }
   },
   {
@@ -836,7 +908,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Oeste Agro 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram e sem dono confirmado: peça pelo responsável comercial e pergunte se vendem mais por representante."
+      "dica": "Sem Instagram e sem dono confirmado: peça pelo responsável comercial e pergunte se vendem mais por representante.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Oeste Agro Nutrição Animal."
+      ]
     }
   },
   {
@@ -901,7 +979,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Bahia Peças 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram e sem dono confirmado: peça pelo dono ou gerente da loja."
+      "dica": "Sem Instagram e sem dono confirmado: peça pelo dono ou gerente da loja.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Bahia Peças Agrícolas."
+      ]
     }
   },
   {
@@ -965,7 +1049,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra JB 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono confirmado: peça pelo dono ou gerente. Elogie a nota 4,8."
+      "dica": "Sem dono confirmado: peça pelo dono ou gerente. Elogie a nota 4,8.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da JB Comércio de Peças Agrícolas."
+      ]
     }
   },
   {
@@ -1029,7 +1119,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Atacadão Agrícola 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono confirmado: peça pelo dono ou gerente. Abre 7h: ligue entre 6h30 e 7h ou depois das 17h30."
+      "dica": "Sem dono confirmado: peça pelo dono ou gerente. Abre 7h: ligue entre 6h30 e 7h ou depois das 17h30.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Atacadão Agrícola."
+      ]
     }
   },
   {
@@ -1093,7 +1189,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Glicério! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agropecuária KS 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram. O WhatsApp (77) 99991-3138 vem de um diretório, não verificado. Maria Regina é a outra sócia."
+      "dica": "Sem Instagram. O WhatsApp (77) 99991-3138 vem de um diretório, não verificado. Maria Regina é a outra sócia.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Agropecuária KS junto."
+      ]
     }
   },
   {
@@ -1157,7 +1259,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Gabriel! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agrototal 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "3 irmãos sócios (Gabriel, Giovana, Rafael). Venda técnica: fale de 'quem pesquisa antes de pedir orçamento'."
+      "dica": "3 irmãos sócios (Gabriel, Giovana, Rafael). Venda técnica: fale de 'quem pesquisa antes de pedir orçamento'.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agrototal."
+      ]
     }
   },
   {
@@ -1221,7 +1329,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Antonio! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Purimada 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Empresa familiar de 1996 (Antonio e Keiko): tom respeitoso, sem pressa. Pergunte se vendem pra fazenda ou mais balcão."
+      "dica": "Empresa familiar de 1996 (Antonio e Keiko): tom respeitoso, sem pressa. Pergunte se vendem pra fazenda ou mais balcão.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Purimada Produtos Agropecuários junto."
+      ]
     }
   },
   {
@@ -1286,7 +1400,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Celso! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra RM 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Abrem 6h: ligue entre 6h e 7h. O guia elogia o atendimento e o café; cite isso pra quebrar o gelo."
+      "dica": "Abrem 6h: ligue entre 6h e 7h. O guia elogia o atendimento e o café; cite isso pra quebrar o gelo.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da RM Peças Agrícolas junto."
+      ]
     }
   },
   {
@@ -1350,7 +1470,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Jessica! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Lippert 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "O gancho forte é a Rimave, que também é revenda Kuhn e tem site. Fale dela pelo nome."
+      "dica": "O gancho forte é a Rimave, que também é revenda Kuhn e tem site. Fale dela pelo nome.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Lippert Peças Agrícolas."
+      ]
     }
   },
   {
@@ -1415,7 +1541,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Emerson! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agroapoio 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Insumo se vende muito por RTV: pergunte se o site ajudaria a equipe a apresentar o portfólio na fazenda."
+      "dica": "Insumo se vende muito por RTV: pergunte se o site ajudaria a equipe a apresentar o portfólio na fazenda.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agroapoio Insumos Agrícolas."
+      ]
     }
   },
   {
@@ -1479,7 +1611,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Artemio! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Soyagro 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram; o domínio deles é usado só pro e-mail, então o site sairia rápido. Flavio é o outro sócio."
+      "dica": "Sem Instagram; o domínio deles é usado só pro e-mail, então o site sairia rápido. Flavio é o outro sócio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Soyagro Insumos Agrícolas junto."
+      ]
     }
   },
   {
@@ -1543,7 +1681,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Eder! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra TC Peças 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Novidade deles: linha de ferramentas Tramontina, Dewalt, Stanley, Trapp. Use isso como gancho de 'público novo'."
+      "dica": "Novidade deles: linha de ferramentas Tramontina, Dewalt, Stanley, Trapp. Use isso como gancho de 'público novo'.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da TC Peças Agrícolas."
+      ]
     }
   },
   {
@@ -1607,7 +1751,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Suely! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Marinho Máquinas 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Diferencial: peça usada. Se a Suely não atender, peça pelo Gesley (sócio). Fone fixo (64) 3621-4570 na bio."
+      "dica": "Diferencial: peça usada. Se a Suely não atender, peça pelo Gesley (sócio). Fone fixo (64) 3621-4570 na bio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Marinho Máquinas Agrícolas junto."
+      ]
     }
   },
   {
@@ -1671,7 +1821,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Jaqueline! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Unimáquinas 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Nicho claro: pulverizador Jacto. Cite 'Jacto' na abertura; é o que o cliente dela pesquisa."
+      "dica": "Nicho claro: pulverizador Jacto. Cite 'Jacto' na abertura; é o que o cliente dela pesquisa.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Unimáquinas."
+      ]
     }
   },
   {
@@ -1735,7 +1891,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Vili! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agro Rural 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Bio do Instagram só diz 'Fundada em 1997': é fácil mostrar o ganho. Adriana é a outra sócia."
+      "dica": "Bio do Instagram só diz 'Fundada em 1997': é fácil mostrar o ganho. Adriana é a outra sócia.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Agro Rural junto."
+      ]
     }
   },
   {
@@ -1799,7 +1961,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Valmir! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Primagro 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Mencione a ADM Nutrição Animal: é a marca que o pecuarista conhece."
+      "dica": "Mencione a ADM Nutrição Animal: é a marca que o pecuarista conhece.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Primagro Agropecuária."
+      ]
     }
   },
   {
@@ -1863,7 +2031,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Gustavo! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Rural 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Mix bem variado (aves ornamentais, selaria, medicamentos, sementes): use a ideia de 'catálogo por categoria'. Jair é o outro sócio."
+      "dica": "Mix bem variado (aves ornamentais, selaria, medicamentos, sementes): use a ideia de 'catálogo por categoria'. Jair é o outro sócio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Rural Agropecuária junto."
+      ]
     }
   },
   {
@@ -1927,7 +2101,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Edivan! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Primaverde 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Estão em 2º na busca via guia FarmBy: o argumento é 'falta pouco pra passar a RPM'."
+      "dica": "Estão em 2º na busca via guia FarmBy: o argumento é 'falta pouco pra passar a RPM'.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Primaverde Peças."
+      ]
     }
   },
   {
@@ -1991,7 +2171,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Nilson! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Naza 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram. Pergunte como o pecuarista novo conhece a Naza hoje."
+      "dica": "Sem Instagram. Pergunte como o pecuarista novo conhece a Naza hoje.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Naza Nutrição Animal."
+      ]
     }
   },
   {
@@ -2056,7 +2242,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Darci! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Fertiverde 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Empresa de 1997, sem Instagram. Vera é a outra sócia. O domínio fertiverde.com.br existe mas não aponta pra nada."
+      "dica": "Empresa de 1997, sem Instagram. Vera é a outra sócia. O domínio fertiverde.com.br existe mas não aponta pra nada.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Fertiverde junto."
+      ]
     }
   },
   {
@@ -2120,7 +2312,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Antonio! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agro Forte 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Venda de trator: fale de 'estoque com foto, ano e horas'. José Carlos é o outro sócio."
+      "dica": "Venda de trator: fale de 'estoque com foto, ano e horas'. José Carlos é o outro sócio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Agro Forte Tratores junto."
+      ]
     }
   },
   {
@@ -2184,7 +2382,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Ozenilda! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Irrifer 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Bio diz 'território nacional': o site ajuda a ser achado fora de Rio Verde."
+      "dica": "Bio diz 'território nacional': o site ajuda a ser achado fora de Rio Verde.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Irrifer Máquinas e Irrigação."
+      ]
     }
   },
   {
@@ -2248,7 +2452,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Iara! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Ação Mais Agro 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Bio do Instagram vazia: ganho rápido e fácil de mostrar. Olavo é o outro sócio."
+      "dica": "Bio do Instagram vazia: ganho rápido e fácil de mostrar. Olavo é o outro sócio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da AÇÃO Mais Agro junto."
+      ]
     }
   },
   {
@@ -2313,7 +2523,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Rosana! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agrodiag 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Confirme se o agrodiag.com.br é deles (dá erro 526). Se for, vira gancho de 'site fora do ar'."
+      "dica": "Confirme se o agrodiag.com.br é deles (dá erro 526). Se for, vira gancho de 'site fora do ar'.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agrodiag."
+      ]
     }
   },
   {
@@ -2378,7 +2594,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Arley! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Bioleste 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Têm só uma página heylink.me; não há Instagram confirmado. Pergunte há quanto tempo o site está 'em construção'."
+      "dica": "Têm só uma página heylink.me; não há Instagram confirmado. Pergunte há quanto tempo o site está 'em construção'.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Bioleste Saúde e Nutrição Animal."
+      ]
     }
   },
   {
@@ -2442,7 +2664,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Rogério! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra RVR 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Oficina pequena: tom de parceiro. Ligue cedo ou no fim do dia, o mecânico está na máquina."
+      "dica": "Oficina pequena: tom de parceiro. Ligue cedo ou no fim do dia, o mecânico está na máquina.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da RVR Mecânica Agrícola."
+      ]
     }
   },
   {
@@ -2507,7 +2735,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Armando! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Safra Peças 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Foco em John Deere e 'atendemos todo o Brasil': o site pode vender fora de Sorriso. José Aparecido é o outro sócio."
+      "dica": "Foco em John Deere e 'atendemos todo o Brasil': o site pode vender fora de Sorriso. José Aparecido é o outro sócio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Safra Peças Agrícolas junto."
+      ]
     }
   },
   {
@@ -2571,7 +2805,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Julio! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agromáquinas 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram, só link de WhatsApp. Aparece na busca via ficha da Exa: argumento 'já aparece, falta ter página'."
+      "dica": "Sem Instagram, só link de WhatsApp. Aparece na busca via ficha da Exa: argumento 'já aparece, falta ter página'.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agromáquinas Peças para Tratores."
+      ]
     }
   },
   {
@@ -2635,7 +2875,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Adão! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Mont Rio 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Diferencial: multimarcas e suporte técnico. Pergunte quais marcas mais vendem."
+      "dica": "Diferencial: multimarcas e suporte técnico. Pergunte quais marcas mais vendem.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Mont Rio GPS."
+      ]
     }
   },
   {
@@ -2699,7 +2945,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Hugo! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra H Neto 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram. Pergunte se o forte é peça ou assistência; o site destaca o que mais dá dinheiro."
+      "dica": "Sem Instagram. Pergunte se o forte é peça ou assistência; o site destaca o que mais dá dinheiro.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da H Neto Peças e Assistência."
+      ]
     }
   },
   {
@@ -2763,7 +3015,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Ademir! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Pivatto 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Consultoria se vende por confiança: fale de 'mostrar cases e serviços'. Jussara é a outra sócia."
+      "dica": "Consultoria se vende por confiança: fale de 'mostrar cases e serviços'. Jussara é a outra sócia.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Pivatto Planejamento Agropecuário junto."
+      ]
     }
   },
   {
@@ -2827,7 +3085,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Beatriz! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Zoovet 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sócias Beatriz e Jessica. Pergunte qual serviço elas mais querem vender."
+      "dica": "Sócias Beatriz e Jessica. Pergunte qual serviço elas mais querem vender.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Zoovet Consultoria Pecuária junto."
+      ]
     }
   },
   {
@@ -2892,7 +3156,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Rafael! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Searv 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Muito visível, deve receber muita ligação: seja o mais curto de todos e vá direto ao print do site em construção."
+      "dica": "Muito visível, deve receber muita ligação: seja o mais curto de todos e vá direto ao print do site em construção.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Searv Produtos Agropecuários junto."
+      ]
     }
   },
   {
@@ -2956,7 +3226,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Claudiomiro! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agroboi 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Muito visível, deve receber muita ligação: vá direto ao ponto da Agrobio. Elisangela é a outra sócia."
+      "dica": "Muito visível, deve receber muita ligação: vá direto ao ponto da Agrobio. Elisangela é a outra sócia.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Agroboi Produtos Agropecuários junto."
+      ]
     }
   },
   {
@@ -3020,7 +3296,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Clayton! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Recanto do Criador 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Nichos fortes: piscicultura e apicultura. Pouca loja tem isso; destaque no papo."
+      "dica": "Nichos fortes: piscicultura e apicultura. Pouca loja tem isso; destaque no papo.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Recanto do Criador."
+      ]
     }
   },
   {
@@ -3085,7 +3367,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Roberson! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Rede Rural 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Confirme na ligação se o site caiu (pode ser instabilidade). Willian é o outro sócio."
+      "dica": "Confirme na ligação se o site caiu (pode ser instabilidade). Willian é o outro sócio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Rede Rural Distribuidora junto."
+      ]
     }
   },
   {
@@ -3149,7 +3437,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Eduardo! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agropet 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Público pet e veterinário: fale de pedido e delivery, não de produtor rural."
+      "dica": "Público pet e veterinário: fale de pedido e delivery, não de produtor rural.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agropet PVA."
+      ]
     }
   },
   {
@@ -3213,7 +3507,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Daniel! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Celeiro 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Duas lojas (Sorriso e Nova Ubiratã) e consultório veterinário: um site serve as duas. Marcelino é o outro sócio."
+      "dica": "Duas lojas (Sorriso e Nova Ubiratã) e consultório veterinário: um site serve as duas. Marcelino é o outro sócio.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Celeiro Agropecuária junto."
+      ]
     }
   },
   {
@@ -3277,7 +3577,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Angelica! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Ovos de Ouro 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Maior Instagram da lista (12,9 mil): o argumento é converter o público que já tem."
+      "dica": "Maior Instagram da lista (12,9 mil): o argumento é converter o público que já tem.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agropecuária Ovos de Ouro."
+      ]
     }
   },
   {
@@ -3342,7 +3648,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Anderson! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Fênix 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Gancho mais forte da lista: o domínio mostra a lista de arquivos. Mande o print. 4 sócios; peça pelo Anderson."
+      "dica": "Gancho mais forte da lista: o domínio mostra a lista de arquivos. Mande o print. 4 sócios; peça pelo Anderson.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Fênix Agro junto."
+      ]
     }
   },
   {
@@ -3406,7 +3718,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Gabriel! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Casa das Rações 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Foco pet: fale de delivery e ração a granel, não de agro."
+      "dica": "Foco pet: fale de delivery e ração a granel, não de agro.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Casa das Rações."
+      ]
     }
   },
   {
@@ -3470,7 +3788,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Paula! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Ração & Cia 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Duas lojas (Centro e Jardim Água Boa): o site mostra as duas no mapa."
+      "dica": "Duas lojas (Centro e Jardim Água Boa): o site mostra as duas no mapa.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Ração & Cia."
+      ]
     }
   },
   {
@@ -3534,7 +3858,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agro Semear 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem nome do dono (CNPJ não verificado): peça pelo responsável comercial. Fale de 'híbridos e produtividade'."
+      "dica": "Sem nome do dono (CNPJ não verificado): peça pelo responsável comercial. Fale de 'híbridos e produtividade'.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agro Semear."
+      ]
     }
   },
   {
@@ -3598,7 +3928,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Assis! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Conquista 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem Instagram, só Linktree. Gilvana é a outra sócia. Revenda GTS: pergunte quais marcas mais vendem."
+      "dica": "Sem Instagram, só Linktree. Gilvana é a outra sócia. Revenda GTS: pergunte quais marcas mais vendem.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Conquista Máquinas e Implementos GTS junto."
+      ]
     }
   },
   {
@@ -3662,7 +3998,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Rogério! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Thiesen 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Duas cidades (Dourados e Itaporã): o site serve as duas."
+      "dica": "Duas cidades (Dourados e Itaporã): o site serve as duas.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agropecuária Thiesen."
+      ]
     }
   },
   {
@@ -3727,7 +4069,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Giancarlo! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agrosyn 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Filial de grupo: pergunte quem decide marketing (pode ser a matriz). 3 sócios."
+      "dica": "Filial de grupo: pergunte quem decide marketing (pode ser a matriz). 3 sócios.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você, tipo um sócio? Se quiser, chama ele também, assim já vê a prévia da Agrosyn Agropecuária junto."
+      ]
     }
   },
   {
@@ -3791,7 +4139,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Lucas! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Celeiro 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Negócio novo (CNPJ 2025) e plantão 24h. O Lucas aparece na bio com o celular (64) 98433-1318."
+      "dica": "Negócio novo (CNPJ 2025) e plantão 24h. O Lucas aparece na bio com o celular (64) 98433-1318.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Celeiro Agropecuária RV."
+      ]
     }
   },
   {
@@ -3855,7 +4209,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi, Isania! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Rural Rações 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Bio genérica no Instagram: ganho fácil de mostrar."
+      "dica": "Bio genérica no Instagram: ganho fácil de mostrar.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agropecuária Rural Rações."
+      ]
     }
   },
   {
@@ -3919,7 +4279,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Agroline 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono identificado: peça pelo dono ou gerente. Abra falando da nota boa no Google."
+      "dica": "Sem dono identificado: peça pelo dono ou gerente. Abra falando da nota boa no Google.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Agroline Produtos Agropecuários."
+      ]
     }
   },
   {
@@ -3983,7 +4349,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Forte Agropecuária 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono identificado: peça pelo dono ou gerente. Abra falando da nota boa no Google."
+      "dica": "Sem dono identificado: peça pelo dono ou gerente. Abra falando da nota boa no Google.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Forte Agropecuária."
+      ]
     }
   },
   {
@@ -4047,7 +4419,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Silo Peças 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono identificado: peça pelo dono ou gerente. Abra falando da nota boa no Google."
+      "dica": "Sem dono identificado: peça pelo dono ou gerente. Abra falando da nota boa no Google.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Silo Peças."
+      ]
     }
   },
   {
@@ -4111,7 +4489,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Promak 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono identificado: peça pelo dono ou gerente. Abra falando da nota boa no Google."
+      "dica": "Sem dono identificado: peça pelo dono ou gerente. Abra falando da nota boa no Google.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Promak Máquinas e Implementos."
+      ]
     }
   },
   {
@@ -4175,7 +4559,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Sena 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono identificado: peça pelo dono ou gerente comercial."
+      "dica": "Sem dono identificado: peça pelo dono ou gerente comercial.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Sena Insumos Agrícolas."
+      ]
     }
   },
   {
@@ -4239,7 +4629,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Sementes Bandeirantes 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono identificado: peça pelo responsável comercial. O erro é de plugin; dá pra mostrar que o site existe mas quebrou."
+      "dica": "Sem dono identificado: peça pelo responsável comercial. O erro é de plugin; dá pra mostrar que o site existe mas quebrou.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Sementes Bandeirantes."
+      ]
     }
   },
   {
@@ -4303,7 +4699,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Geral Peças 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono identificado: peça pelo dono ou gerente. Site antigo, feito de imagens recortadas: mande o print do celular."
+      "dica": "Sem dono identificado: peça pelo dono ou gerente. Site antigo, feito de imagens recortadas: mande o print do celular.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Geral Peças Agrícola."
+      ]
     }
   },
   {
@@ -4367,7 +4769,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Gil Máquinas 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono identificado. Site em manutenção com fones (77) 3628-6090 / 99971-0014. Fale de 'estoque de usados com foto'."
+      "dica": "Sem dono identificado. Site em manutenção com fones (77) 3628-6090 / 99971-0014. Fale de 'estoque de usados com foto'.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Gilmáquinas."
+      ]
     }
   },
   {
@@ -4431,7 +4839,13 @@
         }
       ],
       "mensagem_whatsapp_followup": "Oi! Aqui é o Marcos, falamos agora há pouco. Como combinado, segue uma tela da prévia que montei pra Prodotto Agri 👇 É um rascunho, dá pra ajustar tudo. Confirmo nossa chamada de vídeo de 15 min [dia] às [hora]? Se não fizer sentido, sem problema.",
-      "dica": "Sem dono nem segmento confirmados: pergunte o que mais vendem antes do gancho."
+      "dica": "Sem dono nem segmento confirmados: pergunte o que mais vendem antes do gancho.",
+      "agendamento": [
+        "Fechado! Então fica [dia] às [hora], 15 minutinhos. Te mando a confirmação agora no WhatsApp.",
+        "Prefere chamada de vídeo pelo WhatsApp mesmo ou pelo Google Meet?",
+        "Esse número é o melhor pra eu te chamar na hora?",
+        "Tem mais alguém que decide junto com você? Se quiser, chama também pra ver a prévia da Prodotto Agri."
+      ]
     }
   }
 ]
