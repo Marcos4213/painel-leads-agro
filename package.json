@@ -1,0 +1,9 @@
+{
+  "name": "painel-leads-agro",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "leads": "node scripts/csv-to-json.mjs",
+    "test": "node --test tests/logic.test.mjs"
+  }
+}

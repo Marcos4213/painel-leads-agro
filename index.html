@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#07110c" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Painel de ligações do Marcos para prospectar empresas do agro sem site. Busca, filtros, WhatsApp e roteiro de cold call."
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Painel de ligações · Agro</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#lista">Ir para os leads</a>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <img src="favicon.svg" width="44" height="44" alt="" />
+          <div>
+            <p class="eyebrow">Marcos · prospecção agro</p>
+            <h1>Painel de ligações</h1>
+            <p class="lede">Empresas do agro sem site. Toque no lead e ligue.</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button type="button" class="btn btn-ghost" id="export">Exportar</button>
+          <button type="button" class="btn btn-ghost" id="import-btn">Importar</button>
+          <input id="import-file" type="file" accept="application/json,.json" hidden />
+          <button type="button" class="btn btn-call" id="next-desktop">Próximo lead</button>
+        </div>
+      </header>
+
+      <p id="example-banner" class="banner" hidden>
+        Dados de <strong>EXEMPLO</strong>. Nomes, CNPJs e telefones são fictícios — não ligue. Quando a lista real
+        estiver pronta, substitua <span class="mono">data/leads.json</span>.
+      </p>
+      <p class="persist-note">
+        O progresso fica só neste aparelho. Exporte um backup antes de trocar de celular.
+      </p>
+
+      <section class="kpis" aria-label="Resumo da lista completa">
+        <article class="kpi">
+          <strong id="kpi-total">–</strong>
+          <span>Leads</span>
+        </article>
+        <article class="kpi kpi-gold">
+          <strong id="kpi-alta">–</strong>
+          <span>Alta prioridade</span>
+        </article>
+        <article class="kpi" title="Qualquer status diferente de Não contatado">
+          <strong id="kpi-contatados">–</strong>
+          <span>Contatados</span>
+        </article>
+        <article class="kpi kpi-green" title="Status Interessado">
+          <strong id="kpi-interessados">–</strong>
+          <span>Interessados</span>
+        </article>
+        <article class="kpi kpi-gold" title="Status Fechado">
+          <strong id="kpi-fechados">–</strong>
+          <span>Fechados</span>
+        </article>
+      </section>
+
+      <div class="toolbar">
+        <label class="search">
+          <span class="sr-only">Buscar</span>
+          <input
+            id="q"
+            type="search"
+            placeholder="Buscar empresa, dono, cidade ou telefone"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            enterkeyhint="search"
+          />
+        </label>
+        <div class="filters" role="group" aria-label="Filtros">
+          <select id="f-cidade" aria-label="Filtrar por cidade">
+            <option value="">Cidade</option>
+          </select>
+          <select id="f-segmento" aria-label="Filtrar por segmento">
+            <option value="">Segmento</option>
+          </select>
+          <select id="f-prioridade" aria-label="Filtrar por prioridade">
+            <option value="">Prioridade</option>
+            <option value="alta">Alta</option>
+            <option value="média">Média</option>
+          </select>
+          <select id="f-status-site" aria-label="Filtrar por status do site">
+            <option value="">Site</option>
+            <option value="sem site">Sem site</option>
+            <option value="site fora do ar">Fora do ar</option>
+            <option value="site fraco">Site fraco</option>
+          </select>
+          <select id="f-status" aria-label="Filtrar por status do contato">
+            <option value="">Contato</option>
+            <option>Não contatado</option>
+            <option>Liguei - sem resposta</option>
+            <option>Retornar</option>
+            <option>Interessado</option>
+            <option>Proposta enviada</option>
+            <option>Fechado</option>
+            <option>Sem interesse</option>
+          </select>
+          <button type="button" class="btn btn-ghost" id="clear" hidden>Limpar</button>
+        </div>
+      </div>
+      <p id="count" class="count" aria-live="polite">Carregando leads…</p>
+
+      <div class="workspace">
+        <main id="lista">
+          <div id="list" class="list"></div>
+        </main>
+        <aside id="panel" class="panel" aria-label="Detalhe do lead"></aside>
+      </div>
+    </div>
+
+    <div id="backdrop" class="backdrop" hidden></div>
+    <div
+      id="roteiro"
+      class="modal"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="roteiro-title"
+    >
+      <div class="modal-card" id="roteiro-card"></div>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <p id="live" class="sr-only" aria-live="polite"></p>
+    <button type="button" class="fab" id="next-mobile">Próximo lead</button>
+    <noscript>
+      <p class="banner">Este painel precisa de JavaScript para ler os leads e guardar o progresso neste aparelho.</p>
+    </noscript>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
