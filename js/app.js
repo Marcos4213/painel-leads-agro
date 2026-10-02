@@ -1,7 +1,6 @@
 import {
-  CALL_TIPS,
   STATUSES,
-  buildScript,
+  buildCallFlow,
   buildBackup,
   computeKpis,
   facebookUrl,
@@ -24,6 +23,7 @@ import {
   saveProgress,
   scriptPlainText,
   siteStatusLabel,
+  waHrefText,
   telHref,
   todayISO,
   uniquePlaces,
@@ -51,6 +51,8 @@ const state = {
   selectedId: null,
   scriptOpen: false,
   scriptStep: 0,
+  scriptBranches: {},
+  objectionsOpen: false,
   filters: {
     q: "",
     cidade: "",
@@ -418,6 +420,17 @@ function renderPanel() {
   body.scrollTop = 0;
 }
 
+function followupLink(lead, text) {
+  const href = waHrefText(lead.telefone, text);
+  if (!href) return el("button", { type: "button", class: "btn btn-wa", disabled: true }, [icon("wa"), "Sem WhatsApp"]);
+  return el("a", {
+    class: "btn btn-wa",
+    href,
+    target: "_blank",
+    rel: "noopener noreferrer",
+  }, [icon("wa"), "Enviar no WhatsApp"]);
+}
+
 function renderScript() {
   document.body.classList.toggle("modal-open", state.scriptOpen);
   if (!state.scriptOpen || !selectedLead()) {
@@ -426,38 +439,131 @@ function renderScript() {
     return;
   }
   const lead = selectedLead();
-  const steps = buildScript(lead);
-  state.scriptStep = Math.max(0, Math.min(state.scriptStep, steps.length - 1));
-  const step = steps[state.scriptStep];
+  const flow = buildCallFlow(lead);
+  const stages = flow.stages;
+  const previousStep = state.renderedStep;
+  const previousScroll = roteiroCard.querySelector(".script-scroll")?.scrollTop || 0;
+  state.scriptStep = Math.max(0, Math.min(state.scriptStep, stages.length - 1));
+  const stage = stages[state.scriptStep];
+  const who = lead.nome_proprietario || lead.empresa || "Lead";
   roteiro.hidden = false;
   roteiro.inert = false;
   roteiroCard.replaceChildren();
-  const scroll = el("div", { class: "script-scroll" });
 
-  const top = el("div", { class: "script-top" }, [
-    el("div", {}, [
-      el("p", { class: "eyebrow", text: "Roteiro de ligação" }),
-      el("h2", { id: "roteiro-title", class: "panel-hero", text: lead.nome_proprietario || lead.empresa || "Lead" }),
-      lead.empresa && lead.nome_proprietario ? el("p", { class: "company", text: lead.empresa }) : null,
-    ]),
-    el("button", { type: "button", class: "btn btn-ghost", onClick: closeScript, "aria-label": "Fechar roteiro" }, [icon("x"), "Fechar"]),
-  ]);
-
-  const nav = el("div", { class: "steps" });
-  steps.forEach((item, index) => {
-    const short = item.titulo.startsWith("Objeção") ? "Objeção" : item.titulo;
-    nav.append(el("button", {
+  const rail = el("div", { class: "steps", role: "tablist", "aria-label": "Etapas da ligação" });
+  stages.forEach((item, index) => {
+    rail.append(el("button", {
       type: "button",
       class: `step-chip${index === state.scriptStep ? " is-current" : ""}`,
+      role: "tab",
+      "aria-selected": index === state.scriptStep ? "true" : "false",
       onClick: () => {
         state.scriptStep = index;
         renderScript();
       },
-      text: `${index + 1}. ${short}`,
+      text: `${item.numero} ${item.titulo}`,
     }));
   });
 
-  const quote = el("p", { id: "roteiro-quote", class: "script-quote", tabindex: "-1", text: step.texto });
+  const head = el("div", { class: "call-head" }, [
+    el("div", { class: "script-top" }, [
+      el("div", {}, [
+        el("p", { class: "eyebrow", text: flow.personalized ? "Modo ligação · roteiro deste lead" : "Modo ligação · roteiro padrão" }),
+        el("h2", { id: "roteiro-title", class: "call-who", text: who }),
+        lead.nome_proprietario && lead.empresa ? el("p", { class: "company", text: lead.empresa }) : null,
+      ]),
+      el("button", { type: "button", class: "btn btn-ghost", onClick: closeScript, "aria-label": "Fechar roteiro" }, [icon("x"), "Fechar"]),
+    ]),
+    rail,
+  ]);
+
+  const scroll = el("div", { class: "script-scroll" });
+  if (state.scriptStep === 0 && flow.diagnostico.length) {
+    scroll.append(el("section", { class: "seen", "aria-label": "O que vi" }, [
+      el("p", { class: "eyebrow", text: "O que vi" }),
+      el("ul", {}, flow.diagnostico.map((item) => el("li", { text: item }))),
+    ]));
+  }
+  if (state.scriptStep === 0 && flow.dica) {
+    scroll.append(el("p", { class: "dica", text: flow.dica }));
+  }
+  if (!lead.nome_proprietario && state.scriptStep === 0) {
+    scroll.append(el("p", { class: "dica", text: "Nome do dono não informado. Confirme com quem você está falando." }));
+  }
+
+  scroll.append(el("p", { class: "script-count", text: `Etapa ${stage.numero} de ${stages.length}` }));
+  scroll.append(el("h3", { class: "script-title", text: stage.titulo }));
+  if (stage.kicker) scroll.append(el("p", { class: "script-kicker", text: stage.kicker }));
+
+  const beats = el("div", { id: "roteiro-quote", tabindex: "-1" });
+  const linhas = stage.linhas.length ? stage.linhas : ["Sem fala nesta etapa."];
+  linhas.forEach((line) => beats.append(el("p", { class: "beat", text: line })));
+  scroll.append(beats);
+
+  if (stage.pausa) scroll.append(el("p", { class: "pause", text: "PAUSA: espere a resposta" }));
+
+  if (stage.ramos.length) {
+    const selected = state.scriptBranches[stage.id] || "";
+    const box = el("div", { class: "branch-box" });
+    box.append(el("p", { class: "branch-label", text: "Se ele responder" }));
+    const row = el("div", { class: "branches", role: "group", "aria-label": "Respostas possíveis" });
+    stage.ramos.forEach((ramo) => {
+      const on = selected === ramo.rotulo;
+      row.append(el("button", {
+        type: "button",
+        class: `branch-chip${on ? " is-current" : ""}`,
+        "aria-pressed": on ? "true" : "false",
+        onClick: () => {
+          state.scriptBranches[stage.id] = state.scriptBranches[stage.id] === ramo.rotulo ? "" : ramo.rotulo;
+          renderScript();
+        },
+        text: ramo.rotulo,
+      }));
+    });
+    box.append(row);
+    const chosen = stage.ramos.find((ramo) => ramo.rotulo === selected);
+    if (chosen) {
+      box.append(el("div", { class: "branch-reply", "aria-live": "polite" }, chosen.linhas.map((line) => el("p", { class: "beat beat-reply", text: line }))));
+    }
+    scroll.append(box);
+  }
+
+  if (flow.objecoes.length) {
+    const details = el("details", { class: "fold", id: "objecoes" });
+    if (state.objectionsOpen) details.open = true;
+    details.append(el("summary", { text: "Objeções" }));
+    const list = el("div", { class: "fold-body" });
+    flow.objecoes.forEach((item) => {
+      list.append(el("p", { class: "objection", text: item.objecao }));
+      item.linhas.forEach((line) => list.append(el("p", { class: "beat beat-reply", text: line })));
+    });
+    details.append(list);
+    details.addEventListener("toggle", () => {
+      state.objectionsOpen = details.open;
+    });
+    scroll.append(details);
+  }
+
+  const follow = el("details", { class: "fold" });
+  follow.append(el("summary", { text: "Mensagem pós-ligação" }));
+  const followBody = el("div", { class: "fold-body" });
+  followBody.append(el("p", { class: "follow-text", text: flow.whatsapp }));
+  followBody.append(el("div", { class: "script-actions" }, [
+    el("button", {
+      type: "button",
+      class: "btn btn-ghost",
+      onClick: () => copyText(flow.whatsapp, "Mensagem copiada."),
+    }, "Copiar"),
+    followupLink(lead, flow.whatsapp),
+  ]));
+  follow.append(followBody);
+  scroll.append(follow);
+  scroll.append(el("button", {
+    type: "button",
+    class: "btn btn-ghost copy-script",
+    onClick: () => copyText(scriptPlainText(lead), "Roteiro copiado."),
+  }, "Copiar roteiro"));
+
   const controls = el("div", { class: "script-nav" }, [
     el("button", {
       type: "button",
@@ -472,45 +578,36 @@ function renderScript() {
     }),
     el("button", {
       type: "button",
-      class: "btn btn-call",
+      class: "btn btn-ghost",
       "data-script-nav": "next",
       onClick: () => {
-        if (state.scriptStep >= steps.length - 1) {
-          closeScript();
+        if (state.scriptStep >= stages.length - 1) {
+          state.objectionsOpen = true;
+          renderScript();
+          document.getElementById("objecoes")?.scrollIntoView({ block: "nearest" });
           return;
         }
         state.scriptStep += 1;
         renderScript();
       },
-      text: state.scriptStep >= steps.length - 1 ? "Concluir" : "Próxima fala",
+      text: state.scriptStep >= stages.length - 1 ? "Objeções" : "Próximo",
     }),
   ]);
 
-  const tips = el("div", { class: "tips" }, [
-    el("h3", { text: "Antes de ligar" }),
-    el("ul", {}, CALL_TIPS.map((tip) => el("li", { text: tip }))),
+  const footer = el("div", { class: "script-footer call-footer" }, [
+    controls,
+    callLink(lead, "Ligar"),
   ]);
-  if (!lead.nome_proprietario) {
-    tips.append(el("p", { text: "Este lead está sem o nome do dono. Confirme com quem você está falando." }));
+
+  roteiroCard.append(head, scroll, footer);
+  state.renderedStep = state.scriptStep;
+  scroll.scrollTop = previousStep === state.scriptStep ? previousScroll : 0;
+  if (previousStep !== state.scriptStep) {
+    announce(`${stage.titulo}. ${linhas[0]}`);
+    requestAnimationFrame(() => {
+      rail.querySelector(".is-current")?.scrollIntoView({ inline: "center", block: "nearest" });
+    });
   }
-
-  const actions = el("div", { class: "script-actions" }, [
-    el("button", { type: "button", class: "btn btn-ghost", onClick: () => copyText(scriptPlainText(lead), "Roteiro copiado.") }, "Copiar roteiro"),
-    waHref(lead) ? waLink(lead, "WhatsApp") : el("button", { type: "button", class: "btn btn-wa", disabled: true }, "Sem WhatsApp"),
-  ]);
-
-  scroll.append(
-    top,
-    nav,
-    el("p", { class: "script-count", text: `Fala ${state.scriptStep + 1} de ${steps.length}` }),
-    el("h3", { class: "script-title", text: step.titulo }),
-    quote,
-    tips,
-    actions,
-  );
-  roteiroCard.append(scroll, el("div", { class: "script-footer" }, [controls]));
-  scroll.scrollTop = 0;
-  announce(`${step.titulo}. ${step.texto}`);
 }
 
 function syncSheet() {
@@ -592,6 +689,9 @@ function openScript() {
   lastFocus = document.activeElement;
   state.scriptOpen = true;
   state.scriptStep = 0;
+  state.scriptBranches = {};
+  state.objectionsOpen = false;
+  state.renderedStep = -1;
   writeRoute("push");
   renderScript();
   syncSheet();

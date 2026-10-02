@@ -2,9 +2,7 @@
 
 Painel estático, em português, para o Marcos prospectar empresas do agro que não têm site (ou têm um site fraco / fora do ar). Abre no celular, mostra o nome do dono, liga com um toque e guarda o andamento da ligação neste aparelho.
 
-Os 8 leads que vêm no repositório são **fictícios** (empresas “Exemplo”, telefone `(00) 00000-0000`). Não ligue para eles.
-
-**Este site é público.** Não coloque telefone, CNPJ ou anotação real em `data/leads.json` se isso não puder aparecer na internet. A página pede aos buscadores para não indexar (`noindex`), mas quem tiver o link abre o painel sem senha.
+A lista de trabalho está em `data/leads.json`. **O repositório e o site são públicos.** Telefone, CNPJ e anotação que estiverem nesse arquivo ficam visíveis para quem tiver o link. A página pede `noindex`, e isso não substitui uma lista privada.
 
 ## Uso no celular
 
@@ -48,8 +46,29 @@ O script também aceita caminhos: `node scripts/csv-to-json.mjs entrada.csv said
 | `prioridade` | texto | não | `alta` ou `média` |
 | `concorrente_no_google` | texto | não | `Agro Concorrente Exemplo` |
 | `observacao` | texto | não | texto livre |
+| `diagnostico` | lista de textos | não | fatos curtos do Instagram ou do Google |
+| `roteiro` | objeto | não | falas deste lead; ver abaixo |
 
 Qualquer campo pode ficar vazio (`""` ou `null` nos números). O arquivo é uma lista JSON. Um objeto `{ "leads": [ ... ] }` também é aceito.
+
+`diagnostico` e `roteiro` são opcionais. Sem eles, o botão **Roteiro de ligação** usa o texto padrão (abertura, gancho da perda, pergunta, escuta, fechamento e a objeção de “já recebo muita ligação disso”). Com eles, o modo ligação mostra o roteiro daquele lead.
+
+Chaves de `roteiro`, todas opcionais:
+
+| Chave | Tipo |
+| --- | --- |
+| `abertura` | texto |
+| `espera_abertura` | objeto: resposta → o que falar (`sim`, `ocupado`, `quem fala?`) |
+| `gancho_perda` | texto |
+| `gancho_instagram` | texto; vazio ou ausente esconde a etapa Instagram |
+| `pergunta_engajamento` | texto ou lista de textos |
+| `escuta` | lista de textos, ou objeto resposta → continuação |
+| `fechamento_leve` | texto |
+| `objecoes` | lista `{ "objecao", "resposta" }` ou objeto objeção → resposta |
+| `mensagem_whatsapp_followup` | texto da mensagem pós-ligação |
+| `dica` | texto |
+
+Um exemplo completo, fictício, está em [`data/sample-roteiro.json`](data/sample-roteiro.json). Esse arquivo não entra na lista de ligações.
 
 O `id` amarra o progresso salvo no navegador. Se ele faltar, o painel cria um a partir do CNPJ, da empresa e da cidade. IDs repetidos ganham um sufixo.
 
@@ -88,9 +107,9 @@ O número é normalizado para o Brasil:
 - Zero de operadora (`016…`) é removido quando o DDD é válido.
 - O telefone fictício `(00) 00000-0000` continua com DDD `00`, porque `00` não é um DDD real.
 
-A mensagem do WhatsApp usa o nome do dono (se houver) e o nome da empresa.
+No cartão, o WhatsApp abre com uma mensagem curta usando o nome do dono e a empresa. No roteiro, **Enviar no WhatsApp** usa `mensagem_whatsapp_followup` quando esse campo existe.
 
-O roteiro preenche abertura, gancho, pergunta, fechamento e a objeção “já recebo muita ligação disso”. Se `concorrente_no_google` estiver vazio, o gancho fala em **outras empresas da região**, em vez de “é a [concorrente]”. Sem nome do dono, a abertura começa com “Oi, é o Marcos.”
+O modo ligação mostra as etapas em sequência, com **PAUSA: espere a resposta** entre elas. `espera_abertura` e `escuta` em forma de objeto viram botões: ao tocar a resposta, aparece a fala seguinte. Se `concorrente_no_google` estiver vazio no roteiro padrão, o gancho fala em outras empresas da região. Sem nome do dono, a abertura padrão começa com “Oi, é o Marcos.”
 
 ## Backup
 
@@ -138,16 +157,6 @@ Abra `http://127.0.0.1:4173`.
 
 O workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) publica a pasta do site a cada push na branch `main`, usando GitHub Actions.
 
-URL esperada: <https://marcos4213.github.io/painel-leads-agro/>
+Site: <https://marcos4213.github.io/painel-leads-agro/>
 
-O código já está em `main` e o workflow **Publicar no GitHub Pages** já rodou. Ele para no passo “Configurar Pages” com:
-
-> Get Pages site failed. Please verify that the repository has Pages enabled and configured to build using GitHub Actions.
-
-A API de Pages respondeu 403 (`Resource not accessible by integration`) para esta automação, então falta um ajuste que só o dono do repositório faz:
-
-1. Abra [Settings → Pages](https://github.com/Marcos4213/painel-leads-agro/settings/pages).
-2. Em **Build and deployment**, escolha **Source: GitHub Actions**. Salve.
-3. Abra o workflow que falhou e clique em **Re-run all jobs**: [run 37014778149](https://github.com/Marcos4213/painel-leads-agro/actions/runs/37014778149).
-
-Não é senha nem login no painel. Depois desse clique, o site passa a responder em <https://marcos4213.github.io/painel-leads-agro/>.
+Cada push em `main` dispara o workflow **Publicar no GitHub Pages**. A origem do Pages precisa continuar em **GitHub Actions**.

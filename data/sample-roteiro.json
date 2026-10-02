@@ -1,0 +1,56 @@
+{
+  "id": "exemplo-roteiro",
+  "empresa": "Agropecuária Exemplo Ltda",
+  "nome_proprietario": "João Exemplo",
+  "fonte_proprietario": "EXEMPLO — dado fictício",
+  "cnpj": "00.000.000/0001-00",
+  "segmento": "Insumos agrícolas",
+  "cidade": "Ribeirão Preto",
+  "uf": "SP",
+  "telefone": "(00) 00000-0000",
+  "instagram": "exemplo.ficticio",
+  "facebook": "",
+  "status_site": "sem site",
+  "nota_google": null,
+  "avaliacoes": null,
+  "prioridade": "alta",
+  "concorrente_no_google": "Agro Concorrente Exemplo",
+  "observacao": "EXEMPLO — fixture do roteiro personalizado. Não ligar.",
+  "diagnostico": [
+    "Instagram parado, último post antigo",
+    "No Google de Ribeirão Preto aparece a Agro Concorrente Exemplo",
+    "A empresa não tem site no ar"
+  ],
+  "roteiro": {
+    "abertura": "Oi, João Exemplo, é o Marcos. Vou ser rápido. Não estou te vendendo nada agora. Achei um furo na busca de insumos agrícolas em Ribeirão Preto. Posso te falar em 30 segundos?",
+    "espera_abertura": {
+      "sim": "Fechado. Trinta segundos e eu te libero.",
+      "ocupado": "Te solto agora. Te mando uma frase no WhatsApp e você vê quando puder.",
+      "quem fala?": "Marcos. Eu olho empresa do agro que some no Google. Não é oferta, é um achado."
+    },
+    "gancho_perda": "Quando o produtor procura insumos agrícolas em Ribeirão Preto, quem aparece é a Agro Concorrente Exemplo. A Agropecuária Exemplo Ltda não aparece. Quem está com dinheiro na mão liga pra eles.",
+    "gancho_instagram": "No Instagram o perfil existe, mas o último movimento é antigo. Quem chega pelo celular não vê a empresa funcionando.",
+    "pergunta_engajamento": [
+      "Hoje, cliente novo chega mais por indicação ou pelo Instagram?",
+      "Pode falar do seu jeito."
+    ],
+    "escuta": {
+      "indicação": "Indicação é ouro. O furo é quem não te conhece e pesquisa no Google agora.",
+      "instagram": "Então o perfil precisa responder na hora. Hoje ele não segura esse cliente.",
+      "não sei": "Normal. O ponto é o cliente que pesquisa e nem chega até você."
+    },
+    "fechamento_leve": "Posso te mandar no WhatsApp um print dessa busca e uma ideia de como a Agropecuária Exemplo Ltda apareceria ali? Se não fizer sentido, você me ignora.",
+    "objecoes": [
+      {
+        "objecao": "Já recebo muita ligação disso",
+        "resposta": "Imagino. Por isso nem vou te vender por telefone. Só te mando o print e você decide."
+      },
+      {
+        "objecao": "Agora não",
+        "resposta": "Sem problema. Te mando a mensagem e você olha depois das 17h30."
+      }
+    ],
+    "mensagem_whatsapp_followup": "Oi, João Exemplo! Aqui é o Marcos. Como falei: na busca de insumos agrícolas em Ribeirão Preto quem aparece é a Agro Concorrente Exemplo, e a Agropecuária Exemplo Ltda fica de fora. Se quiser, te mostro uma ideia de como ficaria. Se não fizer sentido, pode ignorar.",
+    "dica": "Ligar 6h30–7h30 ou depois das 17h30. Chame o João pelo nome."
+  }
+}
