@@ -72,6 +72,14 @@
           <strong id="kpi-fechados">–</strong>
           <span>Fechados</span>
         </article>
+        <article class="kpi" title="Mensagem enviada e o status do contato não mudou">
+          <strong id="kpi-aguardando">–</strong>
+          <span>Aguardando resposta</span>
+        </article>
+        <article class="kpi kpi-gold" title="Mensagem enviada, 2 ou 5 dias passaram e o status não mudou">
+          <strong id="kpi-followup">–</strong>
+          <span>Follow-up hoje</span>
+        </article>
       </section>
 
       <div class="toolbar">
@@ -104,6 +112,11 @@
             <option value="sem site">Sem site</option>
             <option value="site fora do ar">Fora do ar</option>
             <option value="site fraco">Site fraco</option>
+          </select>
+          <select id="f-whatsapp" aria-label="Filtrar por WhatsApp">
+            <option value="">WhatsApp</option>
+            <option value="aguardando">Aguardando resposta</option>
+            <option value="followup">Follow-up hoje</option>
           </select>
           <select id="f-status" aria-label="Filtrar por status do contato">
             <option value="">Contato</option>

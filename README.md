@@ -49,6 +49,7 @@ O script também aceita caminhos: `node scripts/csv-to-json.mjs entrada.csv said
 | `previa_url` | texto | não | URL da prévia do site já montada |
 | `diagnostico` | lista de textos | não | fatos curtos do Instagram ou do Google |
 | `roteiro` | objeto | não | falas deste lead; ver abaixo |
+| `whatsapp` | objeto | não | sequência de mensagens; ver abaixo |
 
 Qualquer campo pode ficar vazio (`""` ou `null` nos números). O arquivo é uma lista JSON. Um objeto `{ "leads": [ ... ] }` também é aceito.
 
@@ -71,6 +72,24 @@ Chaves de `roteiro`, todas opcionais:
 | `dica` | texto |
 
 Um exemplo completo, fictício, está em [`data/sample-roteiro.json`](data/sample-roteiro.json). Esse arquivo não entra na lista de ligações.
+
+`whatsapp` também é opcional. Sem ele, a aba **WhatsApp** do lead usa a sequência padrão (abertura sem link, contexto, valor da videochamada, follow-up em 2 dias e em 5 dias). Com ele, cada chave preenchida substitui o texto padrão.
+
+| Chave | Tipo |
+| --- | --- |
+| `msg1_abertura` | texto da primeira mensagem |
+| `msg1_variacao` | texto alternativo da abertura |
+| `msg2_contexto` | texto |
+| `msg3_valor` | texto |
+| `respostas` | objeto: tipo de resposta → o que falar |
+| `followup_1` | texto, 2 dias depois |
+| `followup_2` | texto, 5 dias depois |
+| `audio_roteiro` | texto para gravar um áudio de cerca de 25 segundos |
+| `dica_envio` | texto |
+
+O exemplo fictício dessa sequência está em [`data/sample-whatsapp.json`](data/sample-whatsapp.json) e também não entra na lista de ligações.
+
+Cada **Enviar no WhatsApp** ou **Marcar como enviado** grava a data da etapa no mesmo backup. **Aguardando resposta** conta lead com mensagem enviada e status ainda igual ao de quando ela saiu. **Follow-up hoje** é esse mesmo caso quando já se passaram 2 dias sem o follow-up 1, ou 5 dias sem o follow-up 2.
 
 O `id` amarra o progresso salvo no navegador. Se ele faltar, o painel cria um a partir do CNPJ, da empresa e da cidade. IDs repetidos ganham um sufixo.
 
@@ -150,6 +169,8 @@ Os números do topo são da lista inteira, não do filtro:
 - **Interessados** — status `Interessado`
 - **Videochamadas** — status `Videochamada marcada`
 - **Fechados** — status `Fechado`
+- **Aguardando resposta** — mensagem de WhatsApp enviada e o status do contato não mudou
+- **Follow-up hoje** — a primeira mensagem faz 2 ou 5 dias e o follow-up correspondente ainda não foi enviado
 
 A ordem da lista é alta prioridade primeiro, mantendo a ordem do arquivo dentro de cada faixa.
 

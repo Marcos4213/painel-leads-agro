@@ -105,6 +105,9 @@ export function normalizeLead(raw, index = 0) {
   if (source.roteiro && typeof source.roteiro === "object" && !Array.isArray(source.roteiro)) {
     lead.roteiro = source.roteiro;
   }
+  if (source.whatsapp && typeof source.whatsapp === "object" && !Array.isArray(source.whatsapp)) {
+    lead.whatsapp = source.whatsapp;
+  }
   if (!lead.id) lead.id = fallbackId(lead, index);
   return lead;
 }
@@ -553,6 +556,130 @@ export function waHrefText(phone, text) {
   return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
 
+export const WA_STEP_IDS = ["abertura", "contexto", "valor", "followup_1", "followup_2"];
+
+export const WA_TIP = "Envie aos poucos e personalizado; sem link na 1ª mensagem (evita bloqueio do WhatsApp)";
+
+function waText(value) {
+  if (typeof value === "string") return value.trim();
+  if (Array.isArray(value)) {
+    return value.map((item) => (typeof item === "string" ? item.trim() : "")).filter(Boolean).join("\n");
+  }
+  return "";
+}
+
+function replyMap(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return [];
+  return Object.entries(value)
+    .map(([rotulo, fala]) => ({ rotulo: String(rotulo).trim(), texto: waText(fala) }))
+    .filter((item) => item.rotulo && item.texto);
+}
+
+function genericWhatsApp(lead) {
+  const nome = clean(lead?.nome_proprietario);
+  const empresa = scriptCompany(lead || {});
+  const segmento = scriptSegment(lead || {});
+  const cidade = scriptPlace(lead || {});
+  const concorrente = clean(lead?.concorrente_no_google);
+  const oi = nome ? `Oi, ${nome}!` : "Oi!";
+  const contexto = concorrente
+    ? `Quando o produtor procura ${segmento} em ${cidade}, quem aparece é a ${concorrente}. A ${empresa} fica de fora, e esse cliente liga pra eles.`
+    : `Quando o produtor procura ${segmento} em ${cidade}, quem aparece são outras empresas da região. A ${empresa} fica de fora.`;
+  const previa = safeHttpUrl(lead?.previa_url);
+  const valor = `Eu já montei uma prévia do site da ${empresa}, com os produtos de vocês. Posso te mostrar em 15 minutinhos numa chamada de vídeo? Amanhã cedo, umas 7h, ou depois das 17h30.${previa ? `\nPrévia: ${previa}` : ""}`;
+  return {
+    msg1_abertura: `${oi} Aqui é o Marcos. Vi a ${empresa} enquanto pesquisava ${segmento} em ${cidade}. Posso te contar uma coisa rápida?`,
+    msg1_variacao: `${nome ? `${nome}, ` : ""}aqui é o Marcos. Quem procura ${segmento} em ${cidade} não encontra a ${empresa}. Te mando o que eu vi?`,
+    msg2_contexto: contexto,
+    msg3_valor: valor,
+    followup_1: `${oi} Passando dois dias depois: a ${empresa} ainda some na busca de ${segmento} em ${cidade}. Se quiser, te mostro a prévia em 15 minutos.`,
+    followup_2: `${nome ? `${nome}, último recado.` : "Último recado."} Deixo o convite da videochamada de 15 minutos para ver a prévia da ${empresa}. Se não fizer sentido, sem problema.`,
+    audio_roteiro: `${oi.replace("!", ".")} Aqui é o Marcos. Na busca de ${segmento} em ${cidade}, a ${empresa} não aparece. Eu já montei uma prévia do site, com os produtos de vocês. Se topar, te mostro em 15 minutinhos numa chamada de vídeo, amanhã cedo ou depois das 17h30.`,
+    dica_envio: "Abertura sem link. Espere ele responder antes do contexto. O follow-up 1 sai dois dias depois da primeira mensagem; o follow-up 2, cinco dias depois.",
+    respostas: [
+      { rotulo: "quem é?", texto: "Marcos. Eu olho empresa do agro que some no Google. Não é oferta, é um achado." },
+      { rotulo: "agora não", texto: "Sem problema. Te chamo outro dia, cedo ou depois das 17h30." },
+      { rotulo: "pode mandar", texto: `A prévia do site da ${empresa} já está pronta. Posso te mostrar em 15 minutos, amanhã às 7h ou depois das 17h30.` },
+      { rotulo: "não pedi site", texto: "Verdade, fiz por conta própria porque vi o potencial. Se não gostar, sem compromisso." },
+    ],
+  };
+}
+
+export function buildWhatsAppFlow(lead) {
+  const generic = genericWhatsApp(lead || {});
+  const raw = lead?.whatsapp;
+  const custom = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : null;
+  const keys = ["msg1_abertura", "msg1_variacao", "msg2_contexto", "msg3_valor", "followup_1", "followup_2", "audio_roteiro", "dica_envio"];
+  const personalized = Boolean(custom && (keys.some((key) => waText(custom[key])) || replyMap(custom.respostas).length));
+  const pick = (key) => (personalized ? (waText(custom[key]) || generic[key]) : generic[key]);
+  const customReplies = personalized ? replyMap(custom.respostas) : [];
+  const variacao = pick("msg1_variacao");
+  const abertura = pick("msg1_abertura");
+  return {
+    personalized,
+    dica: pick("dica_envio"),
+    audio: pick("audio_roteiro"),
+    respostas: customReplies.length ? customReplies : generic.respostas,
+    steps: [
+      { id: "abertura", numero: "1", titulo: "Abertura", texto: abertura, variacao: variacao && variacao !== abertura ? variacao : "" },
+      { id: "contexto", numero: "2", titulo: "Contexto", texto: pick("msg2_contexto"), variacao: "" },
+      { id: "valor", numero: "3", titulo: "Valor/Videochamada", texto: pick("msg3_valor"), variacao: "" },
+      { id: "followup_1", numero: "", titulo: "Follow-up 1", prazo: "2 dias", texto: pick("followup_1"), variacao: "" },
+      { id: "followup_2", numero: "", titulo: "Follow-up 2", prazo: "5 dias", texto: pick("followup_2"), variacao: "" },
+    ],
+  };
+}
+
+function normalizeSends(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out = {};
+  for (const id of WA_STEP_IDS) {
+    const value = raw[id];
+    if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) out[id] = value;
+  }
+  return out;
+}
+
+export function daysSince(iso, today) {
+  const start = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+  const end = /^(\d{4})-(\d{2})-(\d{2})$/.exec(today || "");
+  if (!start || !end) return 0;
+  const a = Date.UTC(Number(start[1]), Number(start[2]) - 1, Number(start[3]));
+  const b = Date.UTC(Number(end[1]), Number(end[2]) - 1, Number(end[3]));
+  return Math.round((b - a) / 86400000);
+}
+
+export function whatsAppAnchor(envios) {
+  const dates = ["abertura", "contexto", "valor"]
+    .map((id) => envios?.[id])
+    .filter((value) => typeof value === "string" && value);
+  dates.sort();
+  return dates[0] || "";
+}
+
+export function awaitingReply(progress) {
+  const envios = progress?.whatsapp_envios || {};
+  if (!Object.keys(envios).length) return false;
+  const base = progress.whatsapp_status || "Não contatado";
+  return progress.status === base;
+}
+
+export function followUpDue(progress, today = todayISO()) {
+  if (!awaitingReply(progress)) return false;
+  const anchor = whatsAppAnchor(progress.whatsapp_envios);
+  if (!anchor) return false;
+  const days = daysSince(anchor, today);
+  const fu1 = days >= 2 && !progress.whatsapp_envios.followup_1;
+  const fu2 = days >= 5 && !progress.whatsapp_envios.followup_2;
+  return fu1 || fu2;
+}
+
+export function whatsAppCardHint(progress, today = todayISO()) {
+  if (followUpDue(progress, today)) return "Follow-up hoje";
+  if (awaitingReply(progress)) return "Aguardando resposta";
+  return "";
+}
+
 export function hookSummary(lead) {
   const segmento = scriptSegment(lead);
   const cidade = scriptPlace(lead);
@@ -577,6 +704,8 @@ export function normalizeProgress(raw) {
     notas,
     retornar_em: /^\d{4}-\d{2}-\d{2}$/.test(retornar) ? retornar : "",
     videochamada_em: videoWhen(raw?.videochamada_em),
+    whatsapp_envios: normalizeSends(raw?.whatsapp_envios),
+    whatsapp_status: STATUSES.includes(raw?.whatsapp_status) ? raw.whatsapp_status : "",
   };
   if (typeof raw?.previa_url === "string") progress.previa_url = raw.previa_url.trim();
   return progress;
@@ -590,21 +719,25 @@ export function progressOf(progress, id) {
   return normalizeProgress(progress?.[id]);
 }
 
-export function computeKpis(leads, progress) {
+export function computeKpis(leads, progress, today = todayISO()) {
   let alta = 0;
   let contatados = 0;
   let interessados = 0;
   let videochamadas = 0;
   let fechados = 0;
+  let aguardando = 0;
+  let followupHoje = 0;
   for (const lead of leads) {
     if (fold(lead.prioridade) === "alta") alta += 1;
-    const status = progressOf(progress, lead.id).status;
-    if (status !== "Não contatado") contatados += 1;
-    if (status === "Interessado") interessados += 1;
-    if (status === "Videochamada marcada") videochamadas += 1;
-    if (status === "Fechado") fechados += 1;
+    const item = progressOf(progress, lead.id);
+    if (item.status !== "Não contatado") contatados += 1;
+    if (item.status === "Interessado") interessados += 1;
+    if (item.status === "Videochamada marcada") videochamadas += 1;
+    if (item.status === "Fechado") fechados += 1;
+    if (awaitingReply(item)) aguardando += 1;
+    if (followUpDue(item, today)) followupHoje += 1;
   }
-  return { total: leads.length, alta, contatados, interessados, videochamadas, fechados };
+  return { total: leads.length, alta, contatados, interessados, videochamadas, fechados, aguardando, followupHoje };
 }
 
 export function filterLeads(leads, progress, filters) {
@@ -614,6 +747,8 @@ export function filterLeads(leads, progress, filters) {
   const prioridade = filters.prioridade || "";
   const statusSite = filters.status_site || "";
   const statusContato = filters.status_contato || "";
+  const whatsappFila = filters.whatsapp_fila || "";
+  const today = filters.today || todayISO();
 
   const matched = leads.filter((lead) => {
     if (q) {
@@ -637,7 +772,10 @@ export function filterLeads(leads, progress, filters) {
     if (segmento && lead.segmento !== segmento) return false;
     if (prioridade && fold(lead.prioridade) !== fold(prioridade)) return false;
     if (statusSite && lead.status_site !== statusSite) return false;
-    if (statusContato && progressOf(progress, lead.id).status !== statusContato) return false;
+    const item = progressOf(progress, lead.id);
+    if (statusContato && item.status !== statusContato) return false;
+    if (whatsappFila === "aguardando" && !awaitingReply(item)) return false;
+    if (whatsappFila === "followup" && !followUpDue(item, today)) return false;
     return true;
   });
 

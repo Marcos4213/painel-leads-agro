@@ -1,0 +1,33 @@
+{
+  "id": "exemplo-whatsapp",
+  "empresa": "Agropecuária Exemplo Ltda",
+  "nome_proprietario": "João Exemplo",
+  "fonte_proprietario": "EXEMPLO — dado fictício",
+  "cnpj": "00.000.000/0001-00",
+  "segmento": "Insumos agrícolas",
+  "cidade": "Ribeirão Preto",
+  "uf": "SP",
+  "telefone": "(00) 00000-0000",
+  "instagram": "exemplo.ficticio",
+  "facebook": "",
+  "status_site": "sem site",
+  "nota_google": null,
+  "avaliacoes": null,
+  "prioridade": "alta",
+  "concorrente_no_google": "Agro Concorrente Exemplo",
+  "observacao": "EXEMPLO — fixture da sequência de WhatsApp. Não enviar.",
+  "whatsapp": {
+    "msg1_abertura": "Oi, João Exemplo! Aqui é o Marcos. Abertura fictícia, sem link.",
+    "msg1_variacao": "João Exemplo, variação fictícia da abertura. Posso te contar em duas linhas?",
+    "msg2_contexto": "Contexto fictício: na busca de insumos em Ribeirão Preto aparece a Agro Concorrente Exemplo.",
+    "msg3_valor": "Valor fictício: a prévia do site da Agropecuária Exemplo Ltda já está pronta. 15 minutinhos de vídeo, amanhã às 7h ou depois das 17h30.",
+    "respostas": {
+      "sim": "Fechado. Amanhã às 7h eu te mostro a prévia.",
+      "depois": "Sem problema. Te chamo no fim da tarde."
+    },
+    "followup_1": "Follow-up fictício de 2 dias. A Agropecuária Exemplo Ltda ainda some na busca.",
+    "followup_2": "Follow-up fictício de 5 dias. Último convite da videochamada.",
+    "audio_roteiro": "Áudio fictício de uns 25 segundos. Oi, João Exemplo. A prévia do site já está pronta e eu te mostro em 15 minutinhos.",
+    "dica_envio": "Dica fictícia: mande a abertura de manhã cedo e espere a resposta."
+  }
+}
