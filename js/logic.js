@@ -8,6 +8,7 @@ export const STATUSES = [
   "Liguei - sem resposta",
   "Retornar",
   "Interessado",
+  "Videochamada marcada",
   "Proposta enviada",
   "Fechado",
   "Sem interesse",
@@ -97,6 +98,8 @@ export function normalizeLead(raw, index = 0) {
     concorrente_no_google: clean(source.concorrente_no_google),
     observacao: clean(source.observacao),
   };
+  const previa = clean(source.previa_url);
+  if (previa) lead.previa_url = previa;
   const diagnostico = diagnosticoList(source.diagnostico);
   if (diagnostico.length) lead.diagnostico = diagnostico;
   if (source.roteiro && typeof source.roteiro === "object" && !Array.isArray(source.roteiro)) {
@@ -221,6 +224,43 @@ export function waHref(lead) {
   return `https://wa.me/${digits}?text=${encodeURIComponent(waMessage(lead))}`;
 }
 
+export function safeHttpUrl(value) {
+  const v = clean(value);
+  if (!v) return "";
+  try {
+    const url = new URL(v);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return "";
+    return url.href;
+  } catch {
+    return "";
+  }
+}
+
+export function previewUrl(lead, progress) {
+  if (progress && typeof progress.previa_url === "string") return progress.previa_url.trim();
+  return clean(lead?.previa_url);
+}
+
+export function followupMessage(lead) {
+  const nome = clean(lead?.nome_proprietario);
+  const empresa = scriptCompany(lead || {});
+  const segmento = scriptSegment(lead || {});
+  const cidade = scriptPlace(lead || {});
+  const oi = nome ? `Oi, ${nome}!` : "Oi!";
+  const previa = safeHttpUrl(lead?.previa_url);
+  const link = previa ? ` Prévia do site: ${previa}` : "";
+  return `${oi} Aqui é o Marcos. Fica confirmada a chamada de vídeo de 15 minutos para eu te mostrar a prévia do site da ${empresa}. Dia e horário: [dia e hora]. Enquanto isso, segue o print da busca de ${segmento} em ${cidade}.${link}`;
+}
+
+export function previewWaMessage(lead, url) {
+  const href = safeHttpUrl(url);
+  if (!href) return "";
+  const nome = clean(lead?.nome_proprietario);
+  const empresa = scriptCompany(lead || {});
+  const oi = nome ? `Oi, ${nome}!` : "Oi!";
+  return `${oi} Aqui é o Marcos. Segue a prévia do site da ${empresa}, com os produtos de vocês: ${href}`;
+}
+
 export function instagramUrl(value) {
   const v = clean(value);
   if (!v) return "";
@@ -276,7 +316,7 @@ export function buildScript(lead) {
     {
       id: "fechamento",
       titulo: "Fechamento leve",
-      texto: `Posso te mandar no WhatsApp um print dessa busca e uma ideia de como ficaria a ${empresa} aparecendo ali? Se não fizer sentido, você me ignora, sem problema.`,
+      texto: `Eu já montei uma prévia do site da ${empresa}, com os produtos de vocês. Posso te mostrar em 15 minutinhos numa chamada de vídeo? Fica melhor amanhã cedo, umas 7h, ou no fim da tarde, depois das 17h30?`,
     },
     {
       id: "objecao",
@@ -363,6 +403,7 @@ function readRoteiro(raw) {
     pergunta: asLines(raw.pergunta_engajamento),
     escuta,
     fechamento: asLines(raw.fechamento_leve),
+    agendamento: asLines(raw.agendamento),
     objecoes: objectionsFrom(raw.objecoes),
     whatsapp: messageText(raw.mensagem_whatsapp_followup),
     dica: typeof raw.dica === "string" ? raw.dica.trim() : asLines(raw.dica).join(" "),
@@ -375,6 +416,7 @@ function readRoteiro(raw) {
     || parsed.escuta.linhas.length
     || parsed.escuta.ramos.length
     || parsed.fechamento.length
+    || parsed.agendamento.length
     || parsed.objecoes.length
     || parsed.whatsapp
     || parsed.dica;
@@ -390,8 +432,29 @@ function genericPieces(lead) {
     pergunta: asLines(byId.pergunta),
     escuta: ["Deixe ele falar.", "Não preencha o silêncio."],
     fechamento: asLines(byId.fechamento),
-    objecoes: [{ objecao: "Já recebo muita ligação disso", linhas: asLines(byId.objecao) }],
+    objecoes: genericObjections(),
   };
+}
+
+function genericObjections() {
+  return [
+    {
+      objecao: "Já recebo muita ligação disso",
+      linhas: asLines("Imagino. Por isso nem vou te vender por telefone, só te mando o print e você decide."),
+    },
+    {
+      objecao: "não tenho tempo pra reunião",
+      linhas: asLines("São 15 minutos. Amanhã cedo, umas 7h, ou depois das 17h30. Se não gostar da prévia, a gente encerra."),
+    },
+    {
+      objecao: "manda por WhatsApp mesmo",
+      linhas: asLines("Mando o print. A prévia fica melhor em 15 minutos de vídeo, no horário que você puder."),
+    },
+    {
+      objecao: "não pedi site nenhum",
+      linhas: asLines("Verdade, fiz por conta própria porque vi o potencial. Se não gostar, sem compromisso."),
+    },
+  ];
 }
 
 export function buildCallFlow(lead) {
@@ -434,12 +497,21 @@ export function buildCallFlow(lead) {
     linhas: personalized ? escutaLinhas : generic.escuta,
     ramos: escuta.ramos,
   });
+  const agenda = custom?.agendamento || [];
   push({
     id: "fechamento",
     titulo: "Fechamento leve",
     linhas: custom?.fechamento.length ? custom.fechamento : generic.fechamento,
-    pausa: false,
+    pausa: agenda.length > 0,
   });
+  if (agenda.length) {
+    push({
+      id: "agendamento",
+      titulo: "Agendar videochamada",
+      linhas: agenda,
+      pausa: false,
+    });
+  }
 
   const dica = custom?.dica || CALL_TIPS.join("\n");
   return {
@@ -448,7 +520,7 @@ export function buildCallFlow(lead) {
     dica,
     stages,
     objecoes: custom?.objecoes.length ? custom.objecoes : generic.objecoes,
-    whatsapp: custom?.whatsapp || waMessage(lead || {}),
+    whatsapp: custom?.whatsapp || followupMessage(lead || {}),
   };
 }
 
@@ -491,19 +563,27 @@ export function hookSummary(lead) {
   return `Quem busca ${segmento} em ${cidade} encontra outras empresas da região. A ${empresa} não aparece.`;
 }
 
+function videoWhen(value) {
+  const match = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})/.exec(typeof value === "string" ? value.trim() : "");
+  return match ? match[1] : "";
+}
+
 export function normalizeProgress(raw) {
   const status = STATUSES.includes(raw?.status) ? raw.status : "Não contatado";
   const notas = typeof raw?.notas === "string" ? raw.notas : "";
   const retornar = typeof raw?.retornar_em === "string" ? raw.retornar_em : "";
-  return {
+  const progress = {
     status,
     notas,
     retornar_em: /^\d{4}-\d{2}-\d{2}$/.test(retornar) ? retornar : "",
+    videochamada_em: videoWhen(raw?.videochamada_em),
   };
+  if (typeof raw?.previa_url === "string") progress.previa_url = raw.previa_url.trim();
+  return progress;
 }
 
 export function emptyProgress() {
-  return { status: "Não contatado", notas: "", retornar_em: "" };
+  return { status: "Não contatado", notas: "", retornar_em: "", videochamada_em: "" };
 }
 
 export function progressOf(progress, id) {
@@ -514,15 +594,17 @@ export function computeKpis(leads, progress) {
   let alta = 0;
   let contatados = 0;
   let interessados = 0;
+  let videochamadas = 0;
   let fechados = 0;
   for (const lead of leads) {
     if (fold(lead.prioridade) === "alta") alta += 1;
     const status = progressOf(progress, lead.id).status;
     if (status !== "Não contatado") contatados += 1;
     if (status === "Interessado") interessados += 1;
+    if (status === "Videochamada marcada") videochamadas += 1;
     if (status === "Fechado") fechados += 1;
   }
-  return { total: leads.length, alta, contatados, interessados, fechados };
+  return { total: leads.length, alta, contatados, interessados, videochamadas, fechados };
 }
 
 export function filterLeads(leads, progress, filters) {
@@ -592,6 +674,54 @@ export function returnHint(progress, today = todayISO()) {
   if (progress.retornar_em < today) return `Atrasado · ${label}`;
   if (progress.retornar_em === today) return `Retornar hoje · ${label}`;
   return `Retornar em ${label}`;
+}
+
+export function formatDateTime(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(value || "");
+  if (!match) return "";
+  return `${match[3]}/${match[2]}/${match[1]} ${match[4]}:${match[5]}`;
+}
+
+export function videoHint(progress, now = new Date()) {
+  const raw = progress?.videochamada_em;
+  if (!raw) return "";
+  const label = formatDateTime(raw);
+  const when = new Date(raw);
+  if (!label || Number.isNaN(when.getTime())) return "";
+  if (when.getTime() < now.getTime() - 15 * 60 * 1000) return `Vídeo passou · ${label}`;
+  return `Vídeo · ${label}`;
+}
+
+function calendarStamp(date) {
+  const p = (n) => String(n).padStart(2, "0");
+  return `${date.getUTCFullYear()}${p(date.getUTCMonth() + 1)}${p(date.getUTCDate())}T${p(date.getUTCHours())}${p(date.getUTCMinutes())}${p(date.getUTCSeconds())}Z`;
+}
+
+export function calendarHref(lead, progress) {
+  const empresa = scriptCompany(lead || {});
+  const owner = clean(lead?.nome_proprietario);
+  const phone = clean(lead?.telefone);
+  const previa = safeHttpUrl(previewUrl(lead, progress));
+  const details = [
+    owner ? `Proprietário: ${owner}` : "",
+    phone ? `Telefone: ${phone}` : "",
+    previa ? `Prévia do site: ${previa}` : "",
+    "Chamada de vídeo de 15 minutos para mostrar a prévia do site.",
+  ].filter(Boolean);
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: `Vídeo 15 min · ${empresa}`,
+    details: details.join("\n"),
+  });
+  const when = videoWhen(progress?.videochamada_em);
+  if (when) {
+    const start = new Date(when);
+    if (!Number.isNaN(start.getTime())) {
+      const end = new Date(start.getTime() + 15 * 60 * 1000);
+      params.set("dates", `${calendarStamp(start)}/${calendarStamp(end)}`);
+    }
+  }
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
 export function formatRating(value) {

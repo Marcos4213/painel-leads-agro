@@ -5,14 +5,19 @@ import {
   buildBackup,
   buildCallFlow,
   buildScript,
+  calendarHref,
   computeKpis,
+  followupMessage,
   filterLeads,
   instagramUrl,
   nextLead,
   normalizeLead,
   normalizeLeads,
   parseBackup,
+  previewUrl,
+  previewWaMessage,
   progressOf,
+  safeHttpUrl,
   telHref,
   waHref,
   waHrefText,
@@ -110,7 +115,9 @@ test("roteiro preenche o lead e troca o concorrente vazio", () => {
   assert.match(script, /A Agropecuária Exemplo Ltda não aparece/);
   assert.match(script, /está ligando pra eles/);
   assert.match(script, /chega mais por indicação ou pelo Instagram\?/);
-  assert.match(script, /como ficaria a Agropecuária Exemplo Ltda aparecendo ali/);
+  assert.match(script, /prévia do site da Agropecuária Exemplo Ltda/);
+  assert.match(script, /15 minutinhos numa chamada de vídeo/);
+  assert.match(script, /depois das 17h30\?/);
   assert.match(script, /nem vou te vender por telefone/);
 
   const fallback = buildScript(semConcorrente).find((step) => step.id === "gancho").texto;
@@ -135,6 +142,7 @@ test("KPIs, próximo lead e backup", () => {
     alta: 5,
     contatados: 0,
     interessados: 0,
+    videochamadas: 0,
     fechados: 0,
   });
 
@@ -148,6 +156,7 @@ test("KPIs, próximo lead e backup", () => {
     alta: 5,
     contatados: 3,
     interessados: 1,
+    videochamadas: 0,
     fechados: 1,
   });
 
@@ -186,7 +195,20 @@ test("sem roteiro personalizado usa o fluxo padrão e omite Instagram", () => {
   assert.equal(flow.stages.filter((stage) => stage.pausa).length, 4);
   assert.equal(flow.stages.at(-1).pausa, false);
   assert.equal(flow.objecoes[0].objecao, "Já recebo muita ligação disso");
-  assert.equal(flow.whatsapp, waMessage(fake()));
+  assert.deepEqual(flow.objecoes.map((item) => item.objecao), [
+    "Já recebo muita ligação disso",
+    "não tenho tempo pra reunião",
+    "manda por WhatsApp mesmo",
+    "não pedi site nenhum",
+  ]);
+  assert.match(flow.objecoes[1].linhas.join(" "), /15 minutos/);
+  assert.match(flow.objecoes[2].linhas.join(" "), /15 minutos de vídeo/);
+  assert.equal(flow.objecoes[3].linhas.join(" "), "Verdade, fiz por conta própria porque vi o potencial. Se não gostar, sem compromisso.");
+  assert.match(flow.stages.find((stage) => stage.id === "fechamento").linhas.join(" "), /prévia do site da Agropecuária Exemplo Ltda/);
+  assert.equal(flow.stages.some((stage) => stage.id === "agendamento"), false);
+  assert.equal(flow.whatsapp, followupMessage(fake()));
+  assert.match(flow.whatsapp, /\[dia e hora\]/);
+  assert.match(flow.whatsapp, /print da busca/);
   assert.equal(flow.diagnostico.length, 0);
 });
 
@@ -203,7 +225,11 @@ test("fixture personalizado ramifica, esconde instagram vazio e aceita os dois f
     "Pergunta",
     "Escuta",
     "Fechamento leve",
+    "Agendar videochamada",
   ]);
+  assert.equal(flow.stages.at(-1).pausa, false);
+  assert.equal(flow.stages.find((stage) => stage.id === "fechamento").pausa, true);
+  assert.match(flow.stages.at(-1).linhas.join(" "), /15 minutinhos/);
   assert.deepEqual(flow.stages[0].ramos.map((ramo) => ramo.rotulo), ["sim", "ocupado", "quem fala?"]);
   assert.match(flow.stages[0].ramos[1].linhas.join(" "), /WhatsApp/);
   assert.equal(flow.stages[3].linhas.length, 2);
@@ -240,4 +266,52 @@ test("fixture personalizado ramifica, esconde instagram vazio e aceita os dois f
   assert.match(formatos.objecoes[0].linhas.join(" "), /não chega/);
   assert.equal(buildCallFlow(fake({ roteiro: "texto solto" })).personalized, false);
   assert.equal(buildCallFlow(fake({ roteiro: {} })).personalized, false);
+
+  const soAgenda = buildCallFlow(fake({
+    roteiro: { agendamento: "Amanhã às 7h. Quinze minutos." },
+    previa_url: "https://example.com/previa",
+  }));
+  assert.equal(soAgenda.personalized, true);
+  assert.equal(soAgenda.stages.at(-1).titulo, "Agendar videochamada");
+  assert.match(soAgenda.stages.find((stage) => stage.id === "fechamento").linhas.join(" "), /chamada de vídeo/);
+  assert.match(soAgenda.whatsapp, /Prévia do site: https:\/\/example\.com\/previa/);
+  assert.equal(buildCallFlow(fake({ roteiro: { agendamento: "   " } })).stages.some((stage) => stage.id === "agendamento"), false);
+
+  const antigo = parseBackup({ "ex-01": { status: "Interessado", notas: "oi", retornar_em: "2026-10-03" } });
+  assert.equal(antigo["ex-01"].status, "Interessado");
+  assert.equal(antigo["ex-01"].notas, "oi");
+  assert.equal(antigo["ex-01"].retornar_em, "2026-10-03");
+  assert.equal(antigo["ex-01"].videochamada_em, "");
+  assert.equal("previa_url" in antigo["ex-01"], false);
+
+  const novo = parseBackup({
+    "ex-01": {
+      status: "Videochamada marcada",
+      notas: "",
+      retornar_em: "",
+      videochamada_em: "2026-10-03T07:00:00",
+      previa_url: "  https://example.com/previa  ",
+    },
+  });
+  assert.equal(novo["ex-01"].videochamada_em, "2026-10-03T07:00");
+  assert.equal(novo["ex-01"].previa_url, "https://example.com/previa");
+  assert.equal(parseBackup({ "ex-01": { videochamada_em: "amanhã" } })["ex-01"].videochamada_em, "");
+  assert.equal(parseBackup({ "ex-01": { status: "inventar" } })["ex-01"].status, "Não contatado");
+
+  const comPrevia = fake({ previa_url: "https://example.com/do-arquivo" });
+  assert.equal(previewUrl(comPrevia, progressOf({}, comPrevia.id)), "https://example.com/do-arquivo");
+  assert.equal(previewUrl(comPrevia, progressOf({ [comPrevia.id]: { previa_url: "" } }, comPrevia.id)), "");
+  assert.equal(safeHttpUrl("javascript:alert(1)"), "");
+  assert.equal(safeHttpUrl("https://example.com/previa"), "https://example.com/previa");
+  const marcado = { videochamada_em: "2026-10-03T07:00", previa_url: "https://example.com/previa" };
+  const agendaHref = calendarHref(comPrevia, marcado);
+  assert.match(agendaHref, /^https:\/\/calendar\.google\.com\/calendar\/render\?/);
+  const params = new URL(agendaHref).searchParams;
+  assert.match(params.get("text"), /Agropecuária Exemplo Ltda/);
+  assert.match(params.get("details"), /João Exemplo/);
+  assert.match(params.get("details"), /\(00\) 00000-0000/);
+  assert.match(params.get("details"), /https:\/\/example\.com\/previa/);
+  const [start, end] = params.get("dates").split("/");
+  assert.equal(Date.parse(end.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, "$1-$2-$3T$4:$5:$6Z")) - Date.parse(start.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, "$1-$2-$3T$4:$5:$6Z")), 15 * 60 * 1000);
+  assert.match(previewWaMessage(comPrevia, marcado.previa_url), /prévia do site da Agropecuária Exemplo Ltda/);
 });

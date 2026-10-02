@@ -46,6 +46,7 @@ O script também aceita caminhos: `node scripts/csv-to-json.mjs entrada.csv said
 | `prioridade` | texto | não | `alta` ou `média` |
 | `concorrente_no_google` | texto | não | `Agro Concorrente Exemplo` |
 | `observacao` | texto | não | texto livre |
+| `previa_url` | texto | não | URL da prévia do site já montada |
 | `diagnostico` | lista de textos | não | fatos curtos do Instagram ou do Google |
 | `roteiro` | objeto | não | falas deste lead; ver abaixo |
 
@@ -64,6 +65,7 @@ Chaves de `roteiro`, todas opcionais:
 | `pergunta_engajamento` | texto ou lista de textos |
 | `escuta` | lista de textos, ou objeto resposta → continuação |
 | `fechamento_leve` | texto |
+| `agendamento` | texto ou lista de textos; se existir, vira a etapa “Agendar videochamada” |
 | `objecoes` | lista `{ "objecao", "resposta" }` ou objeto objeção → resposta |
 | `mensagem_whatsapp_followup` | texto da mensagem pós-ligação |
 | `dica` | texto |
@@ -107,7 +109,11 @@ O número é normalizado para o Brasil:
 - Zero de operadora (`016…`) é removido quando o DDD é válido.
 - O telefone fictício `(00) 00000-0000` continua com DDD `00`, porque `00` não é um DDD real.
 
-No cartão, o WhatsApp abre com uma mensagem curta usando o nome do dono e a empresa. No roteiro, **Enviar no WhatsApp** usa `mensagem_whatsapp_followup` quando esse campo existe.
+No cartão, o WhatsApp abre com uma mensagem curta usando o nome do dono e a empresa. No roteiro, **Enviar no WhatsApp** usa `mensagem_whatsapp_followup` quando esse campo existe. Sem essa mensagem, o texto padrão confirma a videochamada de 15 minutos, deixa `[dia e hora]` para preencher e manda o print da busca como teaser.
+
+O fechamento padrão oferece mostrar a prévia do site, já montada, numa chamada de vídeo de 15 minutos (amanhã cedo, umas 7h, ou depois das 17h30). As objeções padrão incluem “não tenho tempo pra reunião”, “manda por WhatsApp mesmo” e “não pedi site nenhum”. Se `roteiro.agendamento` vier preenchido, o modo ligação ganha a etapa **Agendar videochamada** depois do fechamento.
+
+No detalhe do lead dá para marcar o status **Videochamada marcada**, escolher data e hora, e abrir **Adicionar à agenda** (evento de 15 minutos no Google Calendar, com empresa, dono e telefone). O campo **Link da prévia** começa com `previa_url` do arquivo, pode ser editado neste aparelho, e tem **Abrir prévia** e **Enviar prévia**.
 
 O modo ligação mostra as etapas em sequência, com **PAUSA: espere a resposta** entre elas. `espera_abertura` e `escuta` em forma de objeto viram botões: ao tocar a resposta, aparece a fala seguinte. Se `concorrente_no_google` estiver vazio no roteiro padrão, o gancho fala em outras empresas da região. Sem nome do dono, a abertura padrão começa com “Oi, é o Marcos.”
 
@@ -126,18 +132,23 @@ O arquivo exportado tem esta forma:
     "ex-01": {
       "status": "Retornar",
       "notas": "Pediu para ligar depois das 17h",
-      "retornar_em": "2026-10-03"
+      "retornar_em": "2026-10-03",
+      "videochamada_em": "2026-10-03T07:00",
+      "previa_url": "https://example.com/previa"
     }
   }
 }
 ```
 
-Status aceitos: `Não contatado`, `Liguei - sem resposta`, `Retornar`, `Interessado`, `Proposta enviada`, `Fechado`, `Sem interesse`.
+Um backup antigo, sem `videochamada_em` e sem `previa_url`, continua válido. `previa_url` só entra no backup depois de editado no painel; enquanto isso, o painel usa o valor do arquivo de leads.
+
+Status aceitos: `Não contatado`, `Liguei - sem resposta`, `Retornar`, `Interessado`, `Videochamada marcada`, `Proposta enviada`, `Fechado`, `Sem interesse`.
 
 Os números do topo são da lista inteira, não do filtro:
 
 - **Contatados** — qualquer status diferente de `Não contatado`
 - **Interessados** — status `Interessado`
+- **Videochamadas** — status `Videochamada marcada`
 - **Fechados** — status `Fechado`
 
 A ordem da lista é alta prioridade primeiro, mantendo a ordem do arquivo dentro de cada faixa.
