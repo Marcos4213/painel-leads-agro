@@ -2,6 +2,7 @@ import {
   STATUSES,
   buildCallFlow,
   buildBackup,
+  calendarHref,
   computeKpis,
   facebookUrl,
   filterLeads,
@@ -18,8 +19,11 @@ import {
   parseBackup,
   placeLabel,
   priorityLabel,
+  previewUrl,
+  previewWaMessage,
   progressOf,
   returnHint,
+  safeHttpUrl,
   saveProgress,
   scriptPlainText,
   siteStatusLabel,
@@ -28,6 +32,7 @@ import {
   todayISO,
   uniquePlaces,
   uniqueSegments,
+  videoHint,
   waHref,
   fold,
 } from "./logic.js";
@@ -147,6 +152,7 @@ function renderKpis() {
   document.getElementById("kpi-alta").textContent = String(kpis.alta);
   document.getElementById("kpi-contatados").textContent = String(kpis.contatados);
   document.getElementById("kpi-interessados").textContent = String(kpis.interessados);
+  document.getElementById("kpi-video").textContent = String(kpis.videochamadas);
   document.getElementById("kpi-fechados").textContent = String(kpis.fechados);
 }
 
@@ -260,7 +266,7 @@ function renderCard(lead) {
   const bits = [lead.segmento, placeLabel(lead)].filter(Boolean);
   if (bits.length) article.append(el("p", { class: "meta", text: bits.join(" · ") }));
   if (lead.telefone) article.append(el("p", { class: "phone", text: lead.telefone }));
-  const hint = returnHint(progress);
+  const hint = [returnHint(progress), videoHint(progress)].filter(Boolean).join(" · ");
   const due = progress.status === "Retornar" && progress.retornar_em && progress.retornar_em <= todayISO();
   if (hint || progress.notas) {
     article.append(el("p", {
@@ -380,6 +386,44 @@ function renderPanel() {
   });
   body.append(el("label", { class: "field" }, [el("span", { text: "Retornar em" }), date]));
 
+  const when = el("input", {
+    type: "datetime-local",
+    id: "videochamada-em",
+    value: progress.videochamada_em,
+  });
+  when.addEventListener("change", () => {
+    const current = progressOf(state.progress, lead.id);
+    state.progress[lead.id] = { ...current, videochamada_em: when.value };
+    persist();
+    const saved = progressOf(state.progress, lead.id);
+    panel.querySelectorAll(".btn-agenda").forEach((link) => {
+      link.href = calendarHref(lead, saved);
+    });
+    renderList();
+    renderKpis();
+  });
+  body.append(el("label", { class: "field" }, [el("span", { text: "Videochamada" }), when]));
+  body.append(scheduleLink(lead));
+
+  const shownPreview = previewUrl(lead, progress);
+  const previa = el("input", {
+    type: "url",
+    id: "previa-url",
+    inputmode: "url",
+    placeholder: "https://…",
+    value: shownPreview,
+    autocomplete: "off",
+    spellcheck: "false",
+  });
+  previa.addEventListener("change", () => {
+    const current = progressOf(state.progress, lead.id);
+    state.progress[lead.id] = { ...current, previa_url: previa.value.trim() };
+    persist();
+    renderPanel();
+  });
+  body.append(el("label", { class: "field" }, [el("span", { text: "Link da prévia" }), previa]));
+  body.append(previewActions(lead, shownPreview));
+
   const notes = el("textarea", {
     id: "notas",
     rows: "4",
@@ -420,6 +464,39 @@ function renderPanel() {
   body.scrollTop = 0;
 }
 
+function scheduleLink(lead) {
+  const progress = progressOf(state.progress, lead.id);
+  return el("a", {
+    class: "btn btn-ghost btn-agenda",
+    href: calendarHref(lead, progress),
+    target: "_blank",
+    rel: "noopener noreferrer",
+  }, "Adicionar à agenda");
+}
+
+function previewActions(lead, url) {
+  const href = safeHttpUrl(url);
+  const open = href
+    ? el("a", {
+      class: "btn btn-ghost",
+      href,
+      target: "_blank",
+      rel: "noopener noreferrer",
+    }, "Abrir prévia")
+    : el("button", { type: "button", class: "btn btn-ghost", disabled: true }, "Abrir prévia");
+  const message = previewWaMessage(lead, href);
+  const sendHref = waHrefText(lead.telefone, message);
+  const send = sendHref
+    ? el("a", {
+      class: "btn btn-wa",
+      href: sendHref,
+      target: "_blank",
+      rel: "noopener noreferrer",
+    }, [icon("wa"), "Enviar prévia"])
+    : el("button", { type: "button", class: "btn btn-wa", disabled: true }, [icon("wa"), "Enviar prévia"]);
+  return el("div", { class: "preview-actions" }, [open, send]);
+}
+
 function followupLink(lead, text) {
   const href = waHrefText(lead.telefone, text);
   if (!href) return el("button", { type: "button", class: "btn btn-wa", disabled: true }, [icon("wa"), "Sem WhatsApp"]);
@@ -439,7 +516,9 @@ function renderScript() {
     return;
   }
   const lead = selectedLead();
-  const flow = buildCallFlow(lead);
+  const progress = progressOf(state.progress, lead.id);
+  const shownPreview = previewUrl(lead, progress);
+  const flow = buildCallFlow({ ...lead, previa_url: shownPreview });
   const stages = flow.stages;
   const previousStep = state.renderedStep;
   const previousScroll = roteiroCard.querySelector(".script-scroll")?.scrollTop || 0;
@@ -501,6 +580,13 @@ function renderScript() {
   scroll.append(beats);
 
   if (stage.pausa) scroll.append(el("p", { class: "pause", text: "PAUSA: espere a resposta" }));
+
+  if (stage.id === "fechamento" || stage.id === "agendamento") {
+    scroll.append(el("div", { class: "preview-actions", style: "margin: 4px 0 16px" }, [
+      scheduleLink(lead),
+      ...previewActions(lead, shownPreview).childNodes,
+    ]));
+  }
 
   if (stage.ramos.length) {
     const selected = state.scriptBranches[stage.id] || "";
@@ -742,6 +828,7 @@ function setStatus(id, status) {
     if (badge) badge.textContent = status;
   }
   if (status === "Retornar") document.getElementById("retornar-em")?.focus();
+  if (status === "Videochamada marcada") document.getElementById("videochamada-em")?.focus();
 }
 
 async function copyText(text, message) {

@@ -215,9 +215,7 @@ h1 {
   margin-bottom: 14px;
 }
 
-.kpi:nth-child(1),
-.kpi:nth-child(2) { grid-column: span 3; }
-.kpi:nth-child(n + 3) { grid-column: span 2; }
+.kpi { grid-column: span 2; }
 
 .kpi {
   background: rgba(18, 36, 27, 0.92);
@@ -521,6 +519,15 @@ h2.owner, .panel-hero {
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+
+.preview-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.btn-agenda { width: 100%; }
+.preview-actions .btn-agenda { grid-column: 1 / -1; }
 
 .chip {
   position: relative;
@@ -842,11 +849,8 @@ h2.owner, .panel-hero {
   .modal { align-items: center; padding: 24px; }
   .modal-card { border-radius: 22px; }
   .top-actions { width: auto; }
-  .kpis { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .kpi,
-  .kpi:nth-child(1),
-  .kpi:nth-child(2),
-  .kpi:nth-child(n + 3) { grid-column: auto; }
+  .kpis { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .kpi { grid-column: auto; }
   .kpi strong { font-size: 2rem; }
   .kpi span { font-size: 0.75rem; letter-spacing: 0.06em; }
 }

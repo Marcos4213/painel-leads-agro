@@ -16,6 +16,7 @@
   "prioridade": "alta",
   "concorrente_no_google": "Agro Concorrente Exemplo",
   "observacao": "EXEMPLO — fixture do roteiro personalizado. Não ligar.",
+  "previa_url": "https://example.com/previa-agropecuaria-exemplo",
   "diagnostico": [
     "Instagram parado, último post antigo",
     "No Google de Ribeirão Preto aparece a Agro Concorrente Exemplo",
@@ -39,7 +40,11 @@
       "instagram": "Então o perfil precisa responder na hora. Hoje ele não segura esse cliente.",
       "não sei": "Normal. O ponto é o cliente que pesquisa e nem chega até você."
     },
-    "fechamento_leve": "Posso te mandar no WhatsApp um print dessa busca e uma ideia de como a Agropecuária Exemplo Ltda apareceria ali? Se não fizer sentido, você me ignora.",
+    "fechamento_leve": "Eu já montei uma prévia do site da Agropecuária Exemplo Ltda, com os produtos de vocês. Posso te mostrar em 15 minutinhos numa chamada de vídeo?",
+    "agendamento": [
+      "Amanhã cedo, umas 7h, ou no fim da tarde, depois das 17h30.",
+      "São 15 minutinhos. Eu abro a prévia e te mostro os produtos de vocês."
+    ],
     "objecoes": [
       {
         "objecao": "Já recebo muita ligação disso",
